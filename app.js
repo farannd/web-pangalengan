@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 
 //general
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //authentication configurration
 app.use(
