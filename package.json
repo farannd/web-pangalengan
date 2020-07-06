@@ -17,5 +17,9 @@
 		"express-session": "^1.17.1",
 		"method-override": "^3.0.0",
 		"mongoose": "^5.9.21"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/farannd/web-pangalengan"
 	}
 }
