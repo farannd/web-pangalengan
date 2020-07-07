@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Pacifico&family=Righteous&family=Roboto+Condensed:wght@700&family=Ubuntu&display=swap');
+
+body {
+	margin: 79px 0 0 0;
+	padding: 0;
+	font-family: Lato, sans-serif;
+}
+
+/* navbar */
+
+.navbar {
+	background-color: #e9e4e1 !important;
+}
+
+.navbar-brand {
+	color: #7c3c21 !important;
+	font-family: Pacifico, sans-serif;
+	font-size: 35px;
+}
+
+.nav-link {
+	font-size: 16px;
+	margin: 15px;
+	color: black !important;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 700;
+}
+
+.nav-link:hover {
+	color: #ee8137 !important;
+}
+
+.active .nav-link {
+	color: #ee8137 !important;
+}
+
+/* landing page */
+
+.site-content {
+	background: linear-gradient(to right, #141e30, #243b55);
+	padding: 4% 0;
+}
+
+.site-title {
+	color: #fbc49c;
+	font-family: Righteous, sans-serif;
+	font-size: 50px;
+}
+
+/* section 1 */
+.section-1 {
+	padding: 5% 0;
+}
+
+/* footer */
+.footer {
+	background-color: #e9e4e1;
+	padding: 5% 2%;
+}
+
+.footer .param-footer {
+	margin-bottom: 0;
+	margin-top: 0.5%;
+}
+
+.footer .mapouter {
+	position: relative;
+	text-align: right;
+	height: 250px;
+	width: 350px;
+}
+.footer .gmap_canvas {
+	overflow: hidden;
+	background: none !important;
+	height: 250px;
+	width: 350px;
+}
+.footer .sosmed {
+	margin-bottom: 20px;
+}
+
+@media (min-width: 1080px) {
+	.footer .sosmed {
+		margin-bottom: 120px;
+	}
+}

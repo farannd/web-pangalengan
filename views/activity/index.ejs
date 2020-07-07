@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel='stylesheet' href="/styles/404.css" >
+    <link rel='stylesheet' href="/styles/activity/index.css" >
 
     <title>Beautiful Pangalengan</title>
   </head>
@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/about-us">About Us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="/activity">Activity</a>
               </li>
               <li class="nav-item">
@@ -61,16 +61,54 @@
         <div class='site-content'>
           <div class="d-flex justify-content-center">
             <div class="d-flex flex-column align-items-center text-center">
-              <img class='img' src='/images/frown.png'>
               <h1 class="site-title">
-                404
+                Activity
               </h1>
-              <h4>Page Not Found</h4>
-              <p>The page you are looking for doesn't exist</p>
             </div>
           </div>
         </div>
       </div >
+
+      <div class="section-1">
+        <div class="container-fluid">
+          <div class="row justify-content-center align-items-start">
+            <div class="col-12 col-lg-8 order-2 order-lg-1 activity">
+              <% posts.forEach((post) => { %>
+                <div class="activity">
+                  <h1 class='heading-1'><%= post.title %></h1>
+                  <img class='img' src='data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>' alt='img'>
+                  <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+                  <a href='/activity/<%= post._id %>' class='btn button d-block'>Read More</a>
+                  <hr class='rules'>
+                </div>
+              <% }) %>
+            </div>
+            <div class="col-12 col-lg-4 order-1 order-lg-2">
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+              <h5 class='pt-5'>For you</h5>
+              <div class="card my-3" style="width: 18rem;">
+                <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+              <div class="card my-3" style="width: 18rem;">
+                <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer>

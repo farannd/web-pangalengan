@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel='stylesheet' href="/styles/404.css" >
+    <link rel='stylesheet' href="/styles/activity/show.css" >
 
     <title>Beautiful Pangalengan</title>
   </head>
@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/about-us">About Us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="/activity">Activity</a>
               </li>
               <li class="nav-item">
@@ -61,16 +61,32 @@
         <div class='site-content'>
           <div class="d-flex justify-content-center">
             <div class="d-flex flex-column align-items-center text-center">
-              <img class='img' src='/images/frown.png'>
               <h1 class="site-title">
-                404
+                <%= post.title %>
               </h1>
-              <h4>Page Not Found</h4>
-              <p>The page you are looking for doesn't exist</p>
             </div>
           </div>
         </div>
       </div >
+
+      <div class="section-1">
+        <div class="container">
+          <img class='img' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>">
+          <p class='para-1 my-5'><%= post.content %></p>
+          <% if(post.video === 'false') { %>
+            <% null %>
+          <% } else { %>
+            <div class="vid">
+              <iframe class='video' src="<%= post.video%>" frameborder="0" encrypted-media" allowfullscreen></iframe>
+            </div>
+          <% } %>
+          <% if(post.file === 'false') { %>
+            <% null %>
+          <%} else { %>    
+            <a href='<%= post.file %>' class='btn button d-block'>Download File</a>
+          <% }%>
+        </div>
+      </div>
     </main>
 
     <footer>

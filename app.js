@@ -9,6 +9,22 @@ const flash = require('connect-flash');
 //general
 const app = express();
 const port = process.env.PORT || 3000;
+const url =
+	'mongodb://admin:Hip9C1EbVFJ1KZJO@cluster0-shard-00-00.sofu5.mongodb.net:27017,cluster0-shard-00-01.sofu5.mongodb.net:27017,cluster0-shard-00-02.sofu5.mongodb.net:27017/pangalengan?ssl=true&replicaSet=atlas-13vzyg-shard-0&authSource=admin&retryWrites=true&w=majority';
+
+//routes requirement
+const aboutRoutes = require('./routes/about');
+const activityRoutes = require('./routes/activity');
+
+//model requirement
+
+//mongoose configuration
+mongoose.connect(url, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+	useCreateIndex: true
+});
 
 //authentication configurration
 app.use(
@@ -34,6 +50,8 @@ app.use((req, res, next) => {
 	res.locals.warning = req.flash('warning');
 	next();
 });
+app.use(aboutRoutes);
+app.use(activityRoutes);
 
 //landing page
 app.get('/', (req, res) => {
