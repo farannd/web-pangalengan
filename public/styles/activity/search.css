@@ -81,7 +81,6 @@ body {
 .section-1 .heading-1 {
 	font-family: Ubuntu, sans-serif;
 	color: #7c3c21;
-	text-transform: capitalize;
 }
 
 .section-1 .rules {
@@ -105,6 +104,10 @@ body {
 	width: 70%;
 }
 
+.section-1 .activity .heading-1 {
+	text-transform: capitalize;
+}
+
 .section-1 .randomactivity {
 	width: 75%;
 	margin: 0 auto;
@@ -113,10 +116,6 @@ body {
 .section-1 .randomactivity .card {
 	width: 100%;
 	margin: 0 auto;
-}
-
-.section-1 .randomactivity .card-title {
-	text-transform: capitalize;
 }
 
 @media screen and (max-width: 500px) {

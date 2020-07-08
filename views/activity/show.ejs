@@ -57,17 +57,15 @@
     </header>
 
     <main>
-      <div class='container-fluid p-0'>
-        <div class='site-content'>
-          <div class="d-flex justify-content-center">
-            <div class="d-flex flex-column align-items-center text-center">
-              <h1 class="site-title">
-                <%= post.title %>
-              </h1>
-            </div>
+      <div class='site-content'>
+        <div class="d-flex justify-content-center">
+          <div class="d-flex flex-column align-items-center text-center">
+            <h1 class="site-title">
+              <%= post.title %>
+            </h1>
           </div>
         </div>
-      </div >
+      </div>
 
       <div class="section-1">
         <div class="container">
@@ -87,10 +85,36 @@
           <% }%>
           <div class="d-flex flex-row justify-content-end">
             <a class='btn btn-primary rounded-0' href='/activity/<%=post._id%>/edit'>Edit Post</a>
-            <form action="/activity/<%= post._id %>?_method=DELETE" method="POST">
-              <button class="btn btn-danger rounded-0">Delete Post</button>
-            </form>
+            <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">
+              Delete
+            </button>
+
           </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete post</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure to delete this post?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <form action="/activity/<%= post._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger rounded-0">Delete Post</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </main>
@@ -98,9 +122,9 @@
     <footer>
       <div class="container-fluid footer">
         <div class="row justify-content-between align-items-start">
-          <div class="col-12 col-lg-8 order-2 order-lg-1 pb-1">
+          <div class="col-12 col-lg-8 order-2 order-lg-1 my-2 text-center">
             <h4>Contact Us!</h4>
-            <div class="sosmed">
+            <div class="mb-2">
               <a href='/'>
                 <img src="/images/ig.png" alt="ig">
               </a>
@@ -108,7 +132,14 @@
                 <img src="/images/fb.png" alt="ig">
               </a>
             </div>
-            <p class='param-footer'>Designed and built with all the love in the world by Farand from the Wayang Windu KKN team with the help of our contributors. All right reserved. Pangalengan</p>
+            <p class='param-footer'>Designed and built with all the love in the world by Farand from the Wayang Windu KKN team and with the help of our contributors. All right reserved. Pangalengan</p>
+            <div class="my-2">
+              <img src="/images/ugm.png" alt="ugm" class='sponsor-img'>
+              <img src="/images/kkn-ppm.png" alt="kkn-ppm" class='sponsor-img'>
+              <img src="/images/ww.png" alt="ww" class='sponsor-img'>
+              <img src="/images/se.png" alt="se" class='sponsor-img'>
+              <img src="/images/geothermal.png" alt="geothermal" class='sponsor-img'>
+            </div>
           </div>
           <div class="col-12 col-lg-4 order-1 order-lg-2 pb-1 justify-content-end">
             <h4>Our Location</h4>

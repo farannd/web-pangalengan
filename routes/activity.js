@@ -14,7 +14,19 @@ router.get('/activity', (req, res) => {
 			//!harus di update
 			res.redirect('/');
 		} else {
-			res.render('activity/index', { posts: posts });
+			num1 = Math.floor(Math.random() * posts.length);
+			num2 = Math.floor(Math.random() * posts.length);
+			// run this loop until numberOne is different than numberThree
+			if (posts.length > 1) {
+				do {
+					num1 = Math.floor(Math.random() * posts.length);
+				} while (num1 === num2);
+			}
+			res.render('activity/index', {
+				posts: posts.reverse(),
+				random1: posts[num1],
+				random2: posts[num2]
+			});
 		}
 	});
 });
@@ -28,7 +40,7 @@ router.get('/activity/new', (req, res) => {
 router.post('/activity', middleware.upload.single('image'), (req, res) => {
 	let obj = {
 		content: req.body.content,
-		title: req.body.title,
+		title: req.body.title.toLowerCase(),
 		video: req.body.video ? req.body.video : 'false',
 		file: req.body.file ? req.body.file : 'false',
 		image: {
@@ -77,7 +89,7 @@ router.put('/activity/:id', middleware.upload.single('image'), (req, res) => {
 	if (req.file) {
 		obj = {
 			content: req.body.content,
-			title: req.body.title,
+			title: req.body.title.toLowerCase(),
 			video: req.body.video ? req.body.video : 'false',
 			file: req.body.file ? req.body.file : 'false',
 			image: {
@@ -88,7 +100,7 @@ router.put('/activity/:id', middleware.upload.single('image'), (req, res) => {
 	} else {
 		obj = {
 			content: req.body.content,
-			title: req.body.title,
+			title: req.body.title.toLowerCase(),
 			video: req.body.video ? req.body.video : 'false',
 			file: req.body.file ? req.body.file : 'false'
 		};
@@ -118,6 +130,26 @@ router.delete('/activity/:id', (req, res) => {
 			// }
 			foundPost.deleteOne();
 			return res.redirect('/activity');
+		}
+	});
+});
+
+//search post
+router.post('/activity/search', (req, res) => {
+	let search = req.body.search;
+	res.redirect('/activity/search/' + search);
+});
+
+//search show
+router.get('/activity/search/:search', (req, res) => {
+	Activities.find({ title: new RegExp(req.params.search, 'i') }, (err, postsSearch) => {
+		if (err) {
+			//!harus di update
+			console.log(err);
+		} else if (!postsSearch.length) {
+			res.render('activity/search', { search: req.params.search, posts: null });
+		} else {
+			res.render('activity/search', { posts: postsSearch.reverse(), search: req.params.search });
 		}
 	});
 });

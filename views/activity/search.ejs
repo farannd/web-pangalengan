@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel='stylesheet' href="/styles/about/index.css" >
+    <link rel='stylesheet' href="/styles/activity/search.css" >
 
     <title>Beautiful Pangalengan</title>
   </head>
@@ -30,10 +30,10 @@
               <li class="nav-item">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="/about-us">About Us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="/activity">Activity</a>
               </li>
               <li class="nav-item">
@@ -61,18 +61,36 @@
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="site-title">
-              All About Pangalengan
+              Searching for Activities
             </h1>
           </div>
-        </div>
       </div>
+      </div >
 
-      <div class="section-1">
-        <div class="container">
-          <img class='img' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
-          <p class='para-1'><%= post[0].content %></p>
-          <div class="d-flex flex-row justify-content-end">
-            <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
+      <div class="section-1 my-1 my-lg-5">
+        <div class="container-fluid">
+          <form class="form-inline justify-content-center mb-3 mb-lg-5" method="POST" action="/activity/search">
+            <input class="form-control mr-sm-2 search-input" type="text" placeholder="Search" name='search' value='<%= search %>'>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <div class="d-flex flex-column justify-content-center align-items-start">
+            <div class="activity">
+              <% if(posts) { %>
+                <% posts.forEach((post) => { %>
+                  <div class="activity">
+                    <h1 class='heading-1'><%= post.title %></h1>
+                    <img class='img' src='data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>' alt='img'>
+                    <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+                    <a href='/activity/<%= post._id %>' class='btn button d-block'>Read More</a>
+                    <hr class='rules'>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                  <div class="notfound">
+                    <h1 class='text-center'>No matches found. Try a different search...</h1>
+                  </div>
+              <% } %>
+            </div>
           </div>
         </div>
       </div>

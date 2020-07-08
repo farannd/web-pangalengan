@@ -97,6 +97,12 @@ hr.site-hr {
 	margin: 5% auto;
 }
 
+@media screen and (max-width: 500px) {
+	.section-1 .para-1 {
+		width: 95%;
+	}
+}
+
 .section-1 .card-text,
 .para-1 {
 	color: rgba(0, 0, 0, 0.60);
@@ -155,12 +161,12 @@ hr.site-hr {
 /* footer */
 .footer {
 	background-color: #e9e4e1;
-	padding: 5% 2%;
+	padding: 2% 2%;
 }
 
 .footer .param-footer {
 	margin-bottom: 0;
-	margin-top: 0.5%;
+	margin-top: 5%;
 }
 
 .footer .mapouter {
@@ -175,12 +181,8 @@ hr.site-hr {
 	height: 250px;
 	width: 350px;
 }
-.footer .sosmed {
-	margin-bottom: 20px;
-}
 
-@media (min-width: 1080px) {
-	.footer .sosmed {
-		margin-bottom: 120px;
-	}
+.footer .sponsor-img {
+	width: 50px;
+	height: 50px;
 }
