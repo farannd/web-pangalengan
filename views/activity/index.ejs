@@ -43,7 +43,7 @@
                 <a class="nav-link" href="/gallery">Gallery</a>
               </li>
             </ul>
-            <ul class="navbar-nav justify-content-end">
+            <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#">Sign In <span class="sr-only">(current)</span></a>
               </li>
@@ -73,6 +73,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center align-items-start">
             <div class="col-12 col-lg-8 order-2 order-lg-1 activity">
+              <a href='/activity/new' class='btn button d-block mb-2'>New Post</a>
               <% posts.forEach((post) => { %>
                 <div class="activity">
                   <h1 class='heading-1'><%= post.title %></h1>

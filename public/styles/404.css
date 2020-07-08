@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Pacifico&family=Righteous&family=Roboto+Condensed:wght@700&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Pacifico&family=Montserrat&family=Righteous&family=Roboto+Condensed&family=Ubuntu&display=swap');
 
 body {
 	margin: 79px 0 0 0;
 	padding: 0;
 	font-family: Lato, sans-serif;
+}
+
+html,
+body {
+	overflow-x: hidden;
 }
 
 /* navbar */
@@ -23,7 +28,6 @@ body {
 	margin: 15px;
 	color: black !important;
 	font-family: 'Roboto Condensed', sans-serif;
-	font-weight: 700;
 }
 
 .nav-link:hover {
@@ -44,18 +48,10 @@ body {
 	width: 40%;
 }
 
-.site-title,
-.site-desc {
+.site-title {
 	color: #fbc49c;
 	font-family: Righteous, sans-serif;
-}
-
-.site-title {
 	font-size: 50px;
-}
-
-.site-desc {
-	font-size: 20px;
 }
 
 /* footer */

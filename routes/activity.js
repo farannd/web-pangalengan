@@ -58,4 +58,68 @@ router.get('/activity/:id', (req, res) => {
 	});
 });
 
+//show edit
+router.get('/activity/:id/edit', (req, res) => {
+	let id = req.params.id;
+	Activities.findById(id, (err, post) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('activity/edit', { post: post });
+		}
+	});
+});
+
+//update post activity
+router.put('/activity/:id', middleware.upload.single('image'), (req, res) => {
+	let id = req.params.id;
+	let obj = {};
+	if (req.file) {
+		obj = {
+			content: req.body.content,
+			title: req.body.title,
+			video: req.body.video ? req.body.video : 'false',
+			file: req.body.file ? req.body.file : 'false',
+			image: {
+				data: req.file.buffer,
+				contentType: req.file.mimetype
+			}
+		};
+	} else {
+		obj = {
+			content: req.body.content,
+			title: req.body.title,
+			video: req.body.video ? req.body.video : 'false',
+			file: req.body.file ? req.body.file : 'false'
+		};
+	}
+	Activities.findByIdAndUpdate(id, obj, (err, post) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect('/activity/' + id);
+		}
+	});
+});
+
+//cascade delete post and comment associated with it
+router.delete('/activity/:id', (req, res) => {
+	let id = req.params.id;
+	Activities.findById(id, (err, foundPost) => {
+		if (err || !foundPost) {
+			console.log(err);
+			return res.redirect('/activity');
+		} else {
+			// let commentLength = foundPost.comment.length;
+			// for (let i = 0; i < commentLength; i++) {
+			// 	Comment.findByIdAndDelete(foundPost.comment[i]._id, (err, result) => {
+			// 		if (err) console.log(err.message);
+			// 	});
+			// }
+			foundPost.deleteOne();
+			return res.redirect('/activity');
+		}
+	});
+});
+
 module.exports = router;

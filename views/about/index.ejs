@@ -43,7 +43,7 @@
                 <a class="nav-link" href="/gallery">Gallery</a>
               </li>
             </ul>
-            <ul class="navbar-nav justify-content-end">
+            <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#">Sign In <span class="sr-only">(current)</span></a>
               </li>
@@ -73,6 +73,9 @@
         <div class="container">
           <img class='img' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
           <p class='para-1'><%= post[0].content %></p>
+          <div class="d-flex flex-row justify-content-end">
+            <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
+          </div>
         </div>
       </div>
     </main>
