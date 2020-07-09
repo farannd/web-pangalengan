@@ -5,20 +5,25 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-//general
+//general confid
 const app = express();
+require('dotenv').config();
 const port = process.env.PORT || 3000;
-const url =
-	'mongodb://admin:Hip9C1EbVFJ1KZJO@cluster0-shard-00-00.sofu5.mongodb.net:27017,cluster0-shard-00-01.sofu5.mongodb.net:27017,cluster0-shard-00-02.sofu5.mongodb.net:27017/pangalengan?ssl=true&replicaSet=atlas-13vzyg-shard-0&authSource=admin&retryWrites=true&w=majority';
 
 //routes requirement
 const aboutRoutes = require('./routes/about');
 const activityRoutes = require('./routes/activity');
+const userRoutes = require('./routes/user');
 
 //model requirement
+const User = require('./models/user');
 
 //mongoose configuration
+const url = process.env.DBURL;
 mongoose.connect(url, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -26,7 +31,7 @@ mongoose.connect(url, {
 	useCreateIndex: true
 });
 
-//authentication configurration
+//session authenticate
 app.use(
 	session({
 		secret: 'kepoin aja',
@@ -41,8 +46,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
 app.set('view engine', 'ejs');
+app.use(cookieParser('secret'));
 
-//routes configuration
+//authenticate config
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//parameter yang dioper ke ejs
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash('success');
@@ -50,8 +64,11 @@ app.use((req, res, next) => {
 	res.locals.warning = req.flash('warning');
 	next();
 });
+
+//routes config
 app.use(aboutRoutes);
 app.use(activityRoutes);
+app.use(userRoutes);
 
 //landing page
 app.get('/', (req, res) => {

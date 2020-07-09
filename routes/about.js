@@ -74,6 +74,7 @@ router.put('/about-us/:id', middleware.upload.single('image'), (req, res) => {
 		if (err) {
 			return res.redirect('/about-us');
 		} else {
+			req.flash('success', 'Update success');
 			return res.redirect('/about-us');
 		}
 	});

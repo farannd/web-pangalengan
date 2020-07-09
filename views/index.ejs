@@ -43,33 +43,62 @@
                 <a class="nav-link" href="/gallery">Gallery</a>
               </li>
             </ul>
-            <ul class="navbar-nav justify-content-end">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sign In <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up <span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
+              <ul class="navbar-nav justify-content-end">
+                <% if(!currentUser) { %>
+                  <li class="nav-item">
+                    <a href="/login" class="nav-link">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/register" class="nav-link">Register</a>
+                  </li>
+                <% }else{ %>
+                  <li class="nav-item">
+                    <a href="/profile/<%= currentUser._id %>" class="nav-link">Signed in As <%= currentUser.username %> </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/logout" class="nav-link">Log Out</a>
+                  </li>
+                <% } %>
+              </ul>
           </div>
         </div>
       </nav>
     </header>
-
+    
     <main>
       <div class='site-content'>
-
-          <div class="d-flex justify-content-center">
-            <div class="d-flex flex-column align-items-center text-center">
-              <div class="h1 site-title">
-                Beautiful Pangalengan
-              </div>
-              <hr class='site-hr'>
-              <p class='site-desc'>Where heaven on earth places</p>
+        <div class="d-flex justify-content-center">
+          <div class="d-flex flex-column align-items-center text-center">
+            <div class="h1 site-title">
+              Beautiful Pangalengan
             </div>
+            <hr class='site-hr'>
+            <p class='site-desc'>Where heaven on earth places</p>
           </div>
-
+        </div>
       </div >
+
+      <% if(success && success.length>0 ){ %>
+        <div class="container my-3">
+          <div class="alert alert-success " role="alert">
+              <%= success %>
+          </div>
+        </div>
+      <% } %>
+      <% if(warning && warning.length>0){ %>
+        <div class="container my-3">
+          <div class="alert alert-warning " role="alert">
+              <%= warning %>
+          </div>
+        </div>
+      <% } %>
+      <% if (error && error.length>0){ %>
+        <div class="container my-3">
+          <div class="alert alert-danger " role="alert">
+              <%= error %>
+          </div>
+        </div>
+      <% } %>
 
       <div class="section-1">
         <div class="container text-center">

@@ -8,9 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link rel='stylesheet' href="/styles/activity/index.css" >
 
@@ -43,13 +40,22 @@
                 <a class="nav-link" href="/gallery">Gallery</a>
               </li>
             </ul>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sign In <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up <span class="sr-only">(current)</span></a>
-              </li>
+            <ul class="navbar-nav justify-content-end">
+              <% if(!currentUser) { %>
+                <li class="nav-item">
+                  <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/register" class="nav-link">Register</a>
+                </li>
+              <% }else{ %>
+                <li class="nav-item">
+                  <a href="/profile/<%= currentUser._id %>" class="nav-link">Signed in As <%= currentUser.username %> </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/logout" class="nav-link">Log Out</a>
+                </li>
+              <% } %>
             </ul>
           </div>
         </div>
@@ -67,17 +73,41 @@
       </div>
       </div >
 
+      <% if(success && success.length>0 ){ %>
+        <div class="container my-3">
+          <div class="alert alert-success " role="alert">
+              <%= success %>
+          </div>
+        </div>
+      <% } %>
+      <% if(warning && warning.length>0){ %>
+        <div class="container my-3">
+          <div class="alert alert-warning " role="alert">
+              <%= warning %>
+          </div>
+        </div>
+      <% } %>
+      <% if (error && error.length>0){ %>
+        <div class="container my-3">
+          <div class="alert alert-danger " role="alert">
+              <%= error %>
+          </div>
+        </div>
+      <% } %>
+
       <div class="section-1">
         <div class="container-fluid">
           <div class="row justify-content-center align-items-start">
             <div class="col-12 col-lg-8 order-2 order-lg-1 activity" id='activity'>
-              <a href='/activity/new' class='btn button d-block my-1 my-lg-5'>New Post</a>
+              <a href='/activity/new' class='btn button my-1 my-lg-5'>New Post</a>
               <% posts.forEach((post) => { %>
                 <div class="activity">
                   <h1 class='heading-1'><%= post.title %></h1>
                   <img class='img' src='data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>' alt='img'>
                   <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
-                  <a href='/activity/<%= post._id %>' class='btn button d-block'>Read More</a>
+                  <div class="d-flex flex-row justify-content-end">
+                    <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
+                  </div>
                   <hr class='rules'>
                 </div>
               <% }) %>
@@ -93,17 +123,15 @@
                   <div class="card my-3" style="width: 18rem;">
                     <img src='data:image/<%= random1.image.contentType%>;base64,<%= random1.image.data.toString('base64')%>' class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title"><%= random1.title %></h5>
+                      <a href="/activity/<%= random1._id %>"> <h5 class="card-title"><%= random1.title %></h5></a>
                       <p class="card-text"><%= random1.content.slice(0,50) %> ...</p>
-                      <a href="/activity/<%= random1._id %>" class="btn btn-primary">Read More</a>
                     </div>
                   </div>
                   <div class="card my-3" style="width: 18rem;">
                     <img src='data:image/<%= random2.image.contentType%>;base64,<%= random2.image.data.toString('base64')%>' class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title"><%= random2.title %></h5>
+                      <a href="/activity/<%= random2._id %>"><h5 class="card-title"><%= random2.title %></h5></a>
                       <p class="card-text"><%= random2.content.slice(0,50) %> ...</p>
-                      <a href="/activity/<%= random2._id %>" class="btn btn-primary">Read More</a>
                     </div>
                   </div>
                 </div>
@@ -155,11 +183,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
   </body>
 </html>

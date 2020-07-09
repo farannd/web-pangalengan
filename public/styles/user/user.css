@@ -45,90 +45,24 @@ body {
 	padding: 4% 0;
 }
 
-.site-title,
-.site-desc {
+.site-title {
 	color: #fdede2;
 	font-family: Righteous, sans-serif;
-}
-
-.site-title {
 	font-size: 50px;
 }
 
-.site-desc {
-	font-size: 20px;
-}
-
-/* section 1 */
-.section-1 .activity {
-	margin: 0 auto;
-	padding: 0 1%;
-	width: 70%;
-}
-
-.section-1 .img {
-	width: 100%;
-	margin: 0 auto;
-	display: block;
-	object-fit: cover;
-}
-
-.section-1 .para-1 {
-	padding: 2% 0;
-	text-align: justify;
-	margin: 2% auto;
-}
-.section-1 .heading-1 {
-	font-family: Ubuntu, sans-serif;
-	color: #7c3c21;
-	text-transform: capitalize;
-}
-
-.section-1 .rules {
-	margin: 4% 0;
-	border: 0;
-	height: 1px;
-	width: 100%;
-	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(5, 4, 15, 0.75), rgba(0, 0, 0, 0)) !important;
-}
-
-.section-1 .button {
-	color: white;
-	background-image: linear-gradient(to right, #141e30, #243b55);
-	width: 70%;
+/* form */
+.form .img {
+	width: 80%;
 	display: block;
 	margin: 0 auto;
 }
-.section-1 .button:hover {
-	color: white;
-	background-image: linear-gradient(to right, #3a79ee, #007bff);
-}
 
-.section-1 .search-input {
-	width: 70%;
-}
-
-.section-1 .randomactivity {
-	width: 75%;
-	margin: 0 auto;
-}
-
-.section-1 .randomactivity .card {
-	width: 100%;
-	margin: 0 auto;
-}
-
-.section-1 .randomactivity .card-title {
-	text-transform: capitalize;
-}
-
-@media screen and (max-width: 500px) {
-	.section-1 .activity {
-		width: 95%;
-	}
-	.section-1 .button {
-		width: 95%;
-	}
+.form .para-1 {
+	display: block;
+	text-decoration: none;
+	font-size: 12px;
+	padding: 1% 0;
 }
 
 /* footer */
