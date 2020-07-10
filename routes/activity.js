@@ -10,9 +10,8 @@ const Activities = require('../models/activity');
 //index
 router.get('/activity', (req, res) => {
 	Activities.find({}, (err, posts) => {
-		if (err || !posts.length) {
-			//!harus di update
-			res.redirect('/');
+		if (err) {
+			console.log(err);
 		} else {
 			num1 = Math.floor(Math.random() * posts.length);
 			num2 = Math.floor(Math.random() * posts.length);

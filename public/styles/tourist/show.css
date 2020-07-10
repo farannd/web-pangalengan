@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Pacifico&family=Montserrat&family=Righteous&family=Roboto+Condensed&family=Ubuntu&display=swap');
+
+body {
+	margin: 79px 0 0 0;
+	padding: 0;
+	font-family: Lato, sans-serif;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
+
+/* navbar */
+
+.navbar {
+	background-color: #e9e4e1 !important;
+}
+
+.navbar-brand {
+	color: #7c3c21 !important;
+	font-family: Pacifico, sans-serif;
+	font-size: 35px;
+}
+
+.nav-link {
+	font-size: 16px;
+	margin: 15px;
+	color: black !important;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.nav-link:hover {
+	color: #ee8137 !important;
+}
+
+.active .nav-link {
+	color: #ee8137 !important;
+}
+
+/* landing page */
+
+.site-content {
+	background: linear-gradient(to right, #141e30, #243b55);
+	padding: 4% 0;
+}
+
+.site-title,
+.site-desc {
+	color: #fdede2;
+	font-family: Righteous, sans-serif;
+}
+
+.site-title {
+	font-size: 50px;
+	text-transform: capitalize;
+}
+
+.site-desc {
+	font-size: 20px;
+}
+
+/* section 1 */
+.section-1 {
+	padding: 5% 0;
+	margin: 0 auto;
+	width: 70%;
+}
+
+.section-1 .img {
+	width: 1000px;
+	height: 1000px;
+	margin: 0 auto;
+	display: block;
+	object-fit: cover;
+}
+
+.section-1 .para-1 {
+	width: 100%;
+	text-align: justify;
+}
+
+@media screen and (max-width: 1300px) {
+	.section-1 .img {
+		width: 500px;
+		height: 500px;
+		margin: 0 auto;
+		display: block;
+		object-fit: cover;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.section-1 .img {
+		width: 325px;
+		height: 325px;
+		margin: 0 auto;
+		display: block;
+		object-fit: cover;
+	}
+}
+
+/* On screens that are 600px wide or less, the background color is olive */
+@media screen and (max-width: 500px) {
+	.section-1 {
+		width: 95%;
+	}
+}
+
+/* footer */
+.footer {
+	background-color: #e9e4e1;
+	padding: 2% 2%;
+}
+
+.footer .param-footer {
+	margin-bottom: 0;
+	margin-top: 5%;
+}
+
+.footer .mapouter {
+	position: relative;
+	text-align: right;
+	height: 250px;
+	width: 350px;
+}
+.footer .gmap_canvas {
+	overflow: hidden;
+	background: none !important;
+	height: 250px;
+	width: 350px;
+}
+
+.footer .sponsor-img {
+	width: 50px;
+	height: 50px;
+}

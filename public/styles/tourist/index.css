@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Pacifico&family=Montserrat&family=Righteous&family=Roboto+Condensed&family=Ubuntu&display=swap');
+
+body {
+	margin: 79px 0 0 0;
+	padding: 0;
+	font-family: Lato, sans-serif;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
+
+/* navbar */
+
+.navbar {
+	background-color: #e9e4e1 !important;
+}
+
+.navbar .navbar-brand {
+	color: #7c3c21 !important;
+	font-family: Pacifico, sans-serif;
+	font-size: 35px;
+}
+
+.navbar .nav-link {
+	font-size: 16px;
+	margin: 15px;
+	color: black !important;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.navbar .nav-link:hover {
+	color: #ee8137 !important;
+}
+
+.navbar .active .nav-link {
+	color: #ee8137 !important;
+}
+
+/* landing page */
+
+.site-content {
+	background: linear-gradient(to right, #141e30, #243b55);
+	padding: 4% 0;
+}
+
+.site-title {
+	color: #fdede2;
+	font-family: Righteous, sans-serif;
+	font-size: 50px;
+}
+
+/* section 1 */
+.section-1 img {
+	width: 284px;
+	height: 284px;
+	object-fit: cover;
+	display: block;
+	margin: 0 auto;
+	border-radius: 2%;
+}
+
+.section-1 .card {
+	margin: 2% auto;
+	border: none;
+}
+
+.section-1 .card-title {
+	text-transform: capitalize;
+}
+
+.section-1 .card-text {
+	text-align: justify;
+}
+
+.section-1 #myBtn {
+	position: fixed;
+	bottom: 361px;
+	right: 0;
+	z-index: 99;
+	padding: 10px 40px;
+	border-radius: 0;
+}
+
+.section-1 .category {
+	background-color: #e9e4e1;
+	border-radius: 2px;
+	padding: 5px;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+@media screen and (max-width: 700px) {
+	.section-1 #myBtn {
+		bottom: 20px;
+		right: 30px;
+		padding: 15px;
+	}
+}
+
+/* footer */
+.footer {
+	background-color: #e9e4e1;
+	padding: 2% 2%;
+}
+
+.footer .param-footer {
+	margin-bottom: 0;
+	margin-top: 5%;
+}
+
+.footer .mapouter {
+	position: relative;
+	text-align: right;
+	height: 250px;
+	width: 350px;
+}
+.footer .gmap_canvas {
+	overflow: hidden;
+	background: none !important;
+	height: 250px;
+	width: 350px;
+}
+
+.footer .sponsor-img {
+	width: 50px;
+	height: 50px;
+}

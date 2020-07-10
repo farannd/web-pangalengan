@@ -8,8 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Custom CSS -->
-    <link rel='stylesheet' href="/styles/activity/index.css" >
+    <link rel='stylesheet' href="/styles/tourist/new.css" >
 
     <title>Beautiful Pangalengan</title>
   </head>
@@ -30,10 +33,10 @@
               <li class="nav-item">
                 <a class="nav-link" href="/about-us">About Us</a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="/activity">Activity</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="/tourist-attraction">Tourist Attraction</a>
               </li>
               <li class="nav-item">
@@ -67,11 +70,11 @@
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="site-title">
-              Activity
+              New Post About
             </h1>
           </div>
+        </div>
       </div>
-      </div >
 
       <% if(success && success.length>0 ){ %>
         <div class="container my-3">
@@ -96,67 +99,56 @@
       <% } %>
 
       <div class="section-1">
-        <div class="container-fluid">
-          <div class="row justify-content-center align-items-start">
-            <div class="col-12 col-lg-8 order-2 order-lg-1 activity" id='activity'>
-              <a href='/activity/new' class='btn button my-1 my-lg-5'>New Post</a>
-              <% if(posts){ %>
-                <% posts.forEach((post) => { %>
-                  <div class="activity">
-                    <h1 class='heading-1'><%= post.title %></h1>
-                    <% if(post.image) { %>
-                      <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top" alt="images">
-                    <% } else{ %>
-                      <img src="/images/emptypic.png" class="card-img-top" alt="images">
-                    <% } %>
-                    <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
-                    <div class="d-flex flex-row justify-content-end">
-                      <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
-                    </div>
-                    <hr class='rules'>
-                  </div>
-                <% }) %>
-              <% } %>
-            </div>
-            <div class="col-12 col-lg-4 order-1 order-lg-2">
-              <form class="form-inline justify-content-center my-3 my-lg-5" method="POST" action="/activity/search">
-                  <input class="form-control mr-sm-2 search-input" type="text" placeholder="Search" name='search'>
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-              <div class="d-none d-lg-block">
-                <div class="randomactivity pb-5">
-                  <h5>For you</h5>
-                  <% if(random1) { %>
-                    <div class="card my-3" style="width: 18rem;">
-                      <% if(random1.image) { %>
-                        <img src='data:image/<%= random1.image.contentType%>;base64,<%= random1.image.data.toString('base64')%>' class="card-img-top" alt="...">
-                      <% } else{ %>
-                        <img src="/images/emptypic.png" class="card-img-top" alt="images">
-                      <% } %>
-                      <div class="card-body">
-                        <a href="/activity/<%= random1._id %>"> <h5 class="card-title"><%= random1.title %></h5></a>
-                        <p class="card-text"><%= random1.content.slice(0,50) %> ...</p>
-                      </div>
-                    </div>
-                  <% } %>
+        <div class="container px-5">
+          <form method="POST" action="/tourist-attraction" enctype="multipart/form-data">
 
-                  <% if(random2) { %>
-                    <div class="card my-3" style="width: 18rem;">
-                      <% if(random2.image) { %>
-                        <img src='data:image/<%= random2.image.contentType%>;base64,<%= random2.image.data.toString('base64')%>' class="card-img-top" alt="...">
-                      <% } else{ %>
-                        <img src="/images/emptypic.png" class="card-img-top" alt="images">
-                      <% } %>
-                      <div class="card-body">
-                        <a href="/activity/<%= random2._id %>"><h5 class="card-title"><%= random2.title %></h5></a>
-                        <p class="card-text"><%= random2.content.slice(0,50) %> ...</p>
-                      </div>
-                    </div>
-                  <% } %>
+            <div class="form-group">
+              <label for="title" class='font-weight-bold'>Input a title</label>
+              <input type="text" class="form-control" id="title" name='title' required>
+            </div>
+
+            <p class='font-weight-bold'>Select image</p>
+            <small class="form-text text-muted">Max 4 images</small>
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="image" multiple>
+                <label class="custom-file-label" for="customFile" id='customLabel'>Choose file</label>
+              </div>
+            </div>
+
+            <div class="category mb-3">
+              <p class='font-weight-bold'> Select category</p>
+              <div class="radios ml-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="category" id="exampleRadios1" value="attraction" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Attraction (Objek Wisata)
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="category" id="exampleRadios2" value="lodging">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Lodging (Penginapan)
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="category" id="exampleRadios3" value="restaurant">
+                  <label class="form-check-label" for="exampleRadios3">
+                    Restaurant
+                  </label>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div class="form-group">
+                <label for="newDescription" class="font-weight-bold">Content Put Here</label>
+                <textarea name="content" class="form-control" id="newDescription" required cols="30" rows="10"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
     </main>
@@ -202,5 +194,32 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      let input = document.getElementById( 'customFile' );
+      let infoArea = document.getElementById( 'customLabel' );
+
+      input.addEventListener( 'change', showFileName );
+
+      function showFileName( event ) {
+        
+        // the change event gives us the input it occurred in 
+        let input = event.srcElement;
+        
+        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+        let fileName = [];
+        for (let x=0;x<input.files.length;x++){
+          fileName.push(input.files[x].name);
+        }
+        
+        // use fileName however fits your app best, i.e. add it into a div
+        infoArea.textContent = fileName.join(', ')
+
+        //alert when file more than 4
+        if(input.files.length>4){
+          alert('You can only upload a maximum of 4 images')
+        }
+      }
+    </script>
   </body>
 </html>

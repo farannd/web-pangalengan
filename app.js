@@ -18,6 +18,7 @@ const port = process.env.PORT || 3000;
 const aboutRoutes = require('./routes/about');
 const activityRoutes = require('./routes/activity');
 const userRoutes = require('./routes/user');
+const touristRoutes = require('./routes/tourist');
 
 //model requirement
 const User = require('./models/user');
@@ -69,6 +70,7 @@ app.use((req, res, next) => {
 app.use(aboutRoutes);
 app.use(activityRoutes);
 app.use(userRoutes);
+app.use(touristRoutes);
 
 //landing page
 app.get('/', (req, res) => {
