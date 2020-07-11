@@ -10,9 +10,9 @@ const Abouts = require('../models/about');
 //index
 router.get('/about-us', (req, res) => {
 	Abouts.find({}, (err, post) => {
-		if (err || !post.length) {
-			//!harus di update
-			res.redirect('/');
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/activity');
 		} else {
 			res.render('about/index', { post: post });
 		}
@@ -26,27 +26,38 @@ router.get('/about-us/new', (req, res) => {
 
 //posting new
 router.post('/about-us', middleware.upload.single('image'), (req, res) => {
-	let obj = {
-		content: req.body.content,
-		image: {
-			data: req.file.buffer,
-			contentType: req.file.mimetype
-		}
-	};
-	Abouts.create(obj, (err, item) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.redirect('/about-us');
-		}
-	});
+	if (!req.file) {
+		req.flash('warning', 'Please upload an image');
+		res.redirect('/about-us/new');
+	} else if (!req.body.content) {
+		req.flash('warning', 'Please input a content');
+		res.redirect('/about-us/new');
+	} else {
+		let obj = {
+			content: req.body.content,
+			image: {
+				data: req.file.buffer,
+				contentType: req.file.mimetype
+			}
+		};
+		Abouts.create(obj, (err, item) => {
+			if (err) {
+				req.flash('warning', 'Something went wrong, please try again later');
+				res.redirect('/about-us');
+			} else {
+				req.flash('success', 'Success uploading a new post');
+				res.redirect('/about-us');
+			}
+		});
+	}
 });
 
 //show edit
 router.get('/about-us/edit', (req, res) => {
 	Abouts.find({}, (err, post) => {
 		if (err || !post) {
-			res.redirect('*');
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/about-us');
 		} else {
 			res.render('about/edit', { post: post });
 		}
@@ -72,9 +83,10 @@ router.put('/about-us/:id', middleware.upload.single('image'), (req, res) => {
 	}
 	Abouts.findByIdAndUpdate(id, obj, (err, update) => {
 		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
 			return res.redirect('/about-us');
 		} else {
-			req.flash('success', 'Update success');
+			req.flash('success', 'You successfully update the post');
 			return res.redirect('/about-us');
 		}
 	});

@@ -97,20 +97,26 @@
 
       <div class="section-1">
         <div class="container">
-          <img class='img' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>">
-          <p class='para-1 my-2'><%= post.content %></p>
-          <% if(post.video === 'false') { %>
-            <% null %>
-          <% } else { %>
+          <% if(post.image) {%>
+            <img class='img' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>">
+          <%} else{ %>
+            <img src="/images/emptypic.png" class="card-img-top" alt="images">
+          <% } %>
+          
+          <% if(post.content) {%>
+            <p class='para-1 my-2'><%= post.content %></p>
+          <%}%>
+
+          <% if(post.video) { %>
             <div class="vid">
               <iframe class='video' src="<%= post.video%>" frameborder="0" encrypted-media" allowfullscreen></iframe>
             </div>
           <% } %>
-          <% if(post.file === 'false') { %>
-            <% null %>
-          <%} else { %>    
+          
+          <% if(post.file) { %>   
             <a href='<%= post.file %>' class='btn button d-block mb-2'>Download File</a>
           <% }%>
+          
           <div class="d-flex flex-row justify-content-end">
             <a class='btn btn-primary rounded-0' href='/activity/<%=post._id%>/edit'>Edit Post</a>
             <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">

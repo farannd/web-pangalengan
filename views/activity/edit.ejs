@@ -105,8 +105,12 @@
             </div>
 
             <p class='font-weight-bold mb-1'>Upload image</p>
-            <p class='para-1'>Your current image :</p>
-            <img class='img pb-2 pb-lg-4' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>"> 
+
+            <% if(post.image){ %>
+              <p class='para-1'>Your current image :</p>
+              <img class='img pb-2 pb-lg-4' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>"> 
+            <%} %>
+            
             <div class="input-group mb-3">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="image" >

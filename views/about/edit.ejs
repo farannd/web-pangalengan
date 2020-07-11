@@ -98,8 +98,10 @@
       <div class="section-1">
         <div class="container px-5">
           <p class='font-weight-bold pb-0'>Image that will be updated can be put here</p>
-          <p>Your current image :</p>
-          <img class='img pb-3 pb-lg-4' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
+          <% if (post[0].image) {%>
+            <p>Your current image :</p>
+            <img class='img pb-3 pb-lg-4' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
+          <% }%>
           <form method="POST" action="/about-us/<%= post[0]._id %>?_method=PUT" enctype="multipart/form-data">
             <div class="input-group mb-3">
               <div class="custom-file">

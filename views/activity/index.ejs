@@ -103,13 +103,21 @@
               <% if(posts){ %>
                 <% posts.forEach((post) => { %>
                   <div class="activity">
-                    <h1 class='heading-1'><%= post.title %></h1>
+
+                    <% if(post.title){ %>
+                      <h1 class='heading-1'><%= post.title %></h1>
+                    <%}%>
+
                     <% if(post.image) { %>
                       <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top" alt="images">
                     <% } else{ %>
                       <img src="/images/emptypic.png" class="card-img-top" alt="images">
                     <% } %>
-                    <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+
+                    <% if(post.content){ %>
+                      <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+                    <%}%>
+
                     <div class="d-flex flex-row justify-content-end">
                       <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
                     </div>
@@ -118,45 +126,54 @@
                 <% }) %>
               <% } %>
             </div>
+            
             <div class="col-12 col-lg-4 order-1 order-lg-2">
               <form class="form-inline justify-content-center my-3 my-lg-5" method="POST" action="/activity/search">
                   <input class="form-control mr-sm-2 search-input" type="text" placeholder="Search" name='search'>
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
-              <div class="d-none d-lg-block">
-                <div class="randomactivity pb-5">
-                  <h5>For you</h5>
-                  <% if(random1) { %>
-                    <div class="card my-3" style="width: 18rem;">
-                      <% if(random1.image) { %>
-                        <img src='data:image/<%= random1.image.contentType%>;base64,<%= random1.image.data.toString('base64')%>' class="card-img-top" alt="...">
-                      <% } else{ %>
-                        <img src="/images/emptypic.png" class="card-img-top" alt="images">
-                      <% } %>
-                      <div class="card-body">
-                        <a href="/activity/<%= random1._id %>"> <h5 class="card-title"><%= random1.title %></h5></a>
-                        <p class="card-text"><%= random1.content.slice(0,50) %> ...</p>
-                      </div>
-                    </div>
-                  <% } %>
 
-                  <% if(random2) { %>
-                    <div class="card my-3" style="width: 18rem;">
-                      <% if(random2.image) { %>
-                        <img src='data:image/<%= random2.image.contentType%>;base64,<%= random2.image.data.toString('base64')%>' class="card-img-top" alt="...">
-                      <% } else{ %>
-                        <img src="/images/emptypic.png" class="card-img-top" alt="images">
-                      <% } %>
-                      <div class="card-body">
-                        <a href="/activity/<%= random2._id %>"><h5 class="card-title"><%= random2.title %></h5></a>
-                        <p class="card-text"><%= random2.content.slice(0,50) %> ...</p>
+              <% if(random1 && random2) {%>
+                <div class="d-none d-lg-block">
+                  <div class="randomactivity pb-5">
+                      <h5>For you</h5>
+                      <div class="card my-3" style="width: 18rem;">
+                        <% if(random1.image) { %>
+                          <img src='data:image/<%= random1.image.contentType%>;base64,<%= random1.image.data.toString('base64')%>' class="card-img-top" alt="...">
+                        <% } else{ %>
+                          <img src="/images/emptypic.png" class="card-img-top" alt="images">
+                        <% } %>
+                        <div class="card-body">
+                          <a href="/activity/<%= random1._id %>"> <h5 class="card-title"><%= random1.title %></h5></a>
+                          <p class="card-text"><%= random1.content.slice(0,50) %> ...</p>
+                        </div>
                       </div>
-                    </div>
-                  <% } %>
+
+                      <div class="card my-3" style="width: 18rem;">
+                        <% if(random2.image) { %>
+                          <img src='data:image/<%= random2.image.contentType%>;base64,<%= random2.image.data.toString('base64')%>' class="card-img-top" alt="...">
+                        <% } else{ %>
+                          <img src="/images/emptypic.png" class="card-img-top" alt="images">
+                        <% } %>
+                        <div class="card-body">
+                          <a href="/activity/<%= random2._id %>"><h5 class="card-title"><%= random2.title %></h5></a>
+                          <p class="card-text"><%= random2.content.slice(0,50) %> ...</p>
+                        </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
+              <% } %>
             </div>
           </div>
+
+          <% if(!posts) { %>
+            <div class="notfound my-3 my-lg-5">
+              <img src="/images/frown.png" alt="frown" class='img'>
+              <h1 class='text-center'>There are still no posts yet</h1>
+            </div>
+          <% } %>
+
+
         </div>
       </div>
     </main>

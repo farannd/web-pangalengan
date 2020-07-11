@@ -107,7 +107,13 @@
                 <% posts.forEach((post) => { %>
                   <div class="activity">
                     <h1 class='heading-1'><%= post.title %></h1>
-                    <img class='img' src='data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>' alt='img'>
+
+                    <% if(post.image){ %>
+                      <img class='img' src='data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>' alt='img'>
+                    <%} else{ %>
+                      <img src="/images/emptypic.png" class="img" alt="images">
+                    <% } %>
+                    
                     <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
                     <a href='/activity/<%= post._id %>' class='btn button d-block'>Read More</a>
                     <hr class='rules'>

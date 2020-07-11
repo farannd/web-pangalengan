@@ -24,7 +24,7 @@ router.post('/register', middleware.isLoggedOut, (req, res) => {
 			return res.redirect('/register');
 		} else {
 			passport.authenticate('local')(req, res, () => {
-				req.flash('success', 'Your account successfuly created. Welcome to Pangalengan!');
+				req.flash('success', 'Your account have successfuly created. Welcome to Pangalengan!');
 				return res.redirect('/activity');
 			});
 		}
@@ -59,7 +59,7 @@ router.post('/login', middleware.isLoggedOut, (req, res, next) => {
 //logout
 router.get('/logout', (req, res) => {
 	req.logout();
-	req.flash('success', 'You successfully logged out');
+	req.flash('success', 'You have successfully logged out');
 	return res.redirect('/login');
 });
 
@@ -120,7 +120,12 @@ router.post('/forgot', function(req, res, next) {
 				};
 				smtpTransport.sendMail(mailOptions, function(err) {
 					console.log('mail sent');
-					req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+					req.flash(
+						'success',
+						'An e-mail has been sent to ' +
+							user.email +
+							" with further instructions. if you don't see the email in the inbox then try looking in the spam folder "
+					);
 					done(err, 'done');
 				});
 			}

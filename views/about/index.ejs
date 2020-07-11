@@ -95,15 +95,22 @@
         </div>
       <% } %>
 
-      <div class="section-1">
-        <div class="container">
-          <img class='img' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
-          <p class='para-1'><%= post[0].content %></p>
-          <div class="d-flex flex-row justify-content-end">
-            <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
+      <% if (post) {%>
+        <div class="section-1">
+          <div class="container">
+            <% if(post[0].image){ %>
+              <img class='img' src="data:image/<%= post[0].image.contentType%>;base64,<%= post[0].image.data.toString('base64')%>">
+            <%}else{ %>
+              <img src="/images/emptypic.png" class="img" alt="images">
+            <% } %>
+            <p class='para-1'><%= post[0].content %></p>
+            <div class="d-flex flex-row justify-content-end">
+              <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
+            </div>
           </div>
         </div>
-      </div>
+      <%}%>
+
     </main>
 
     <footer>

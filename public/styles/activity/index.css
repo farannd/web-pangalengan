@@ -73,6 +73,16 @@ body {
 	object-fit: cover;
 }
 
+.section-1 .notfound .img {
+	width: 20%;
+	margin: 0 auto;
+	display: block;
+}
+
+.section-1 .notfound {
+	color: #fbc49c;
+}
+
 .section-1 .para-1 {
 	padding: 2% 0;
 	text-align: justify;

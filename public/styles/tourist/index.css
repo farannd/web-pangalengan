@@ -52,13 +52,24 @@ body {
 }
 
 /* section 1 */
-.section-1 img {
+.section-1 .img {
 	width: 284px;
 	height: 284px;
 	object-fit: cover;
 	display: block;
 	margin: 0 auto;
 	border-radius: 2%;
+}
+
+.section-1 .notfound .img1 {
+	width: 20%;
+	margin: 0 auto;
+	display: block;
+}
+
+.section-1 .notfound {
+	width: 100%;
+	color: #fbc49c;
 }
 
 .section-1 .card {

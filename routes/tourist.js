@@ -8,7 +8,10 @@ const Tourist = require('../models/tourist');
 router.get('/tourist-attraction', (req, res) => {
 	Tourist.find({}, (err, posts) => {
 		if (err) {
-			console.log(err);
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/activity');
+		} else if (!posts.length) {
+			res.render('tourist/index', { posts: null });
 		} else {
 			let currentIndex = posts.length,
 				temporaryValue,
@@ -68,9 +71,10 @@ router.post('/tourist-attraction', middleware.upload.array('image', 12), (req, r
 		console.log(obj);
 		Tourist.create(obj, (err, doc) => {
 			if (err) {
-				console.log(err);
+				req.flash('warning', 'Something went wrong, please try again later');
+				res.redirect('/tourist-attraction');
 			} else {
-				req.flash('success', 'Success');
+				req.flash('success', 'You have successfully uploaded the post');
 				res.redirect('/tourist-attraction');
 			}
 		});
@@ -96,8 +100,8 @@ router.get('/tourist-attraction/restaurant', (req, res) => {
 router.get('/tourist-attraction/:id', (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, post) => {
-		if (err) {
-			req.flash('error', "There's no such post");
+		if (err || !post) {
+			req.flash('warning', 'Something went wrong, please try again later');
 			res.redirect('/tourist-attraction');
 		} else {
 			res.render('tourist/show', { post: post });
@@ -109,8 +113,9 @@ router.get('/tourist-attraction/:id', (req, res) => {
 router.get('/tourist-attraction/:id/edit', (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, post) => {
-		if (err) {
-			console.log(err);
+		if (err || !post) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/tourist-attraction');
 		} else {
 			res.render('tourist/edit', { post: post });
 		}
@@ -145,9 +150,11 @@ router.put('/tourist-attraction/:id', middleware.upload.array('image', 12), (req
 		};
 		console.log(obj);
 		Tourist.findByIdAndUpdate(id, obj, (err, post) => {
-			if (err) {
-				console.log(err);
+			if (err || !post) {
+				req.flash('warning', 'Something went wrong, please try again later');
+				res.redirect('/tourist-attraction');
 			} else {
+				req.flash('success', 'You have successfully updated the post');
 				return res.redirect('/tourist-attraction/' + id);
 			}
 		});
@@ -158,9 +165,11 @@ router.put('/tourist-attraction/:id', middleware.upload.array('image', 12), (req
 			category: req.body.category
 		};
 		Tourist.findByIdAndUpdate(id, obj, (err, post) => {
-			if (err) {
-				console.log(err);
+			if (err || !post) {
+				req.flash('warning', 'Something went wrong, please try again later');
+				res.redirect('/tourist-attraction');
 			} else {
+				req.flash('success', 'You have successfully updated the post');
 				return res.redirect('/tourist-attraction/' + id);
 			}
 		});
@@ -173,7 +182,7 @@ router.delete('/tourist-attraction/:id', (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, foundPost) => {
 		if (err || !foundPost) {
-			console.log(err);
+			req.flash('warning', 'Something went wrong, please try again later');
 			return res.redirect('/activity');
 		} else {
 			// let commentLength = foundPost.comment.length;
@@ -183,6 +192,7 @@ router.delete('/tourist-attraction/:id', (req, res) => {
 			// 	});
 			// }
 			foundPost.deleteOne();
+			req.flash('success', 'You have successfully deleted the post');
 			return res.redirect('/tourist-attraction');
 		}
 	});
