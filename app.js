@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const favicon = require('serve-favicon');
 
 //general confid
 const app = express();
@@ -19,6 +20,7 @@ const aboutRoutes = require('./routes/about');
 const activityRoutes = require('./routes/activity');
 const userRoutes = require('./routes/user');
 const touristRoutes = require('./routes/tourist');
+const galleryRoutes = require('./routes/gallery');
 
 //model requirement
 const User = require('./models/user');
@@ -48,6 +50,7 @@ app.use(methodOverride('_method'));
 app.use(flash());
 app.set('view engine', 'ejs');
 app.use(cookieParser('secret'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 //authenticate config
 app.use(passport.initialize());
@@ -71,6 +74,7 @@ app.use(aboutRoutes);
 app.use(activityRoutes);
 app.use(userRoutes);
 app.use(touristRoutes);
+app.use(galleryRoutes);
 
 //landing page
 app.get('/', (req, res) => {

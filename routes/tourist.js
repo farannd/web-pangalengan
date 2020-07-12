@@ -163,7 +163,7 @@ router.post('/tourist-attraction', middleware.upload.array('image', 12), (req, r
 		};
 		console.log(obj);
 		Tourist.create(obj, (err, doc) => {
-			if (err) {
+			if (err || !doc) {
 				req.flash('warning', 'Something went wrong, please try again later');
 				res.redirect('/tourist-attraction');
 			} else {
@@ -245,7 +245,7 @@ router.put('/tourist-attraction/:id', middleware.upload.array('image', 12), (req
 		Tourist.findByIdAndUpdate(id, obj, (err, post) => {
 			if (err || !post) {
 				req.flash('warning', 'Something went wrong, please try again later');
-				res.redirect('/tourist-attraction');
+				res.redirect('/tourist-attraction/' + id);
 			} else {
 				req.flash('success', 'You have successfully updated the post');
 				return res.redirect('/tourist-attraction/' + id);

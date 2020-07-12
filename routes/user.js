@@ -14,18 +14,28 @@ router.get('/register', middleware.isLoggedOut, (req, res) => {
 	return res.render('user/register');
 });
 router.post('/register', middleware.isLoggedOut, (req, res) => {
-	let newUser = new User({
-		username: req.body.username,
-		email: req.body.email
-	});
-	User.register(newUser, req.body.password, (err, result) => {
-		if (err || !result) {
-			req.flash('warning', err.message);
+	User.find({ email: req.body.email }, (err, doc) => {
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/register');
+		} else if (doc) {
+			req.flash('warning', 'A user with the given email is already registered');
 			return res.redirect('/register');
 		} else {
-			passport.authenticate('local')(req, res, () => {
-				req.flash('success', 'Your account have successfuly created. Welcome to Pangalengan!');
-				return res.redirect('/activity');
+			let newUser = new User({
+				username: req.body.username,
+				email: req.body.email
+			});
+			User.register(newUser, req.body.password, (err, result) => {
+				if (err || !result) {
+					req.flash('warning', err.message);
+					return res.redirect('/register');
+				} else {
+					passport.authenticate('local')(req, res, () => {
+						req.flash('success', 'Your account have successfuly created. Welcome to Pangalengan!');
+						return res.redirect('/activity');
+					});
+				}
 			});
 		}
 	});

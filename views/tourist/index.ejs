@@ -102,13 +102,13 @@
             <a class="nav-link px-2 px-lg-5 active" href="/tourist-attraction">All</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-1 px-lg-5" href="/tourist-attraction/attraction">Attraction</a>
+            <a class="nav-link px-2 px-lg-5" href="/tourist-attraction/attraction">Attraction</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-1 px-lg-5" href="/tourist-attraction/lodging">Lodging</a>
+            <a class="nav-link px-2 px-lg-5" href="/tourist-attraction/lodging">Lodging</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-1 px-lg-5" href="/tourist-attraction/restaurant">Restaurant</a>
+            <a class="nav-link px-2 px-lg-5" href="/tourist-attraction/restaurant">Restaurant</a>
           </li>
         </ul>
       </div>
@@ -119,15 +119,27 @@
 
           <% if(posts){ %>
             <% posts.forEach(post=>{ %>
-              <div class="col-12 col-md-6 col-lg-4 justify-content-center align-items-center">
+              <div class="col-12 col-md-6 col-lg-4 justify-content-center align-self-start mb-3">
                 <div class="card" style="width: 18rem;">
-                  <% if(post.image) { %>
-                    <img src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>" class="img" alt="images">
-                  <% } else{ %>
+
+                  <% if(post.image.length>1) { %>
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        <% for(let x=0;x<post.image.length;x++){ %>
+                          <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                            <img class='img' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
+                          </div>
+                        <% } %>
+                      </div>
+                    </div> 
+                  <% } else if (post.image.length == 1){ %>
+                    <img class='img' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
+                  <% } else { %>
                     <img src="/images/emptypic.png" class="img" alt="images">
                   <% } %>
+
                   <div class="card-body">
-                      <a href='/tourist-attraction/<%=post._id%>'> <h5 class="card-title"> <%= post.title %></h5> </a>
+                      <a href='/tourist-attraction/<%=post._id%>'> <h5 class="card-title text-center"> <%= post.title %></h5> </a>
                       <p class="card-text"><%= post.content.slice(0,150) %> ...</p>
                       <p class='category'><%= post.category %></p>
                   </div>
@@ -186,5 +198,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      $('.carousel').carousel({
+        interval: 3000
+      })
+    </script>
   </body>
 </html>

@@ -98,7 +98,7 @@
       <div class="section-1">
         <div class="container">
 
-          <% if(post.image) { %>
+          <% if(post.image.length>1) { %>
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
 
@@ -119,6 +119,8 @@
                 <span class="sr-only">Next</span>
               </a>
             </div> 
+          <% } else if (post.image.length == 1){ %>
+            <img class='img' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
           <% } else { %>
             <img src="/images/emptypic.png" class="img" alt="images">
           <% } %>

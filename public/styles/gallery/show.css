@@ -17,24 +17,24 @@ body {
 	background-color: #e9e4e1 !important;
 }
 
-.navbar .navbar-brand {
+.navbar-brand {
 	color: #7c3c21 !important;
 	font-family: Pacifico, sans-serif;
 	font-size: 35px;
 }
 
-.navbar .nav-link {
+.nav-link {
 	font-size: 16px;
 	margin: 15px;
 	color: black !important;
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
-.navbar .nav-link:hover {
+.nav-link:hover {
 	color: #ee8137 !important;
 }
 
-.navbar .active .nav-link {
+.active .nav-link {
 	color: #ee8137 !important;
 }
 
@@ -45,74 +45,65 @@ body {
 	padding: 4% 0;
 }
 
-.site-title {
+.site-title,
+.site-desc {
 	color: #fdede2;
 	font-family: Righteous, sans-serif;
+}
+
+.site-title {
 	font-size: 50px;
+	text-transform: capitalize;
+}
+
+.site-desc {
+	font-size: 20px;
 }
 
 /* section 1 */
+.section-1 {
+	padding: 5% 0;
+	margin: 0 auto;
+	width: 70%;
+}
+
 .section-1 .img {
-	width: 284px;
-	height: 284px;
+	width: 1000px;
+	height: 1000px;
+	margin: 0 auto;
+	display: block;
 	object-fit: cover;
-	display: block;
-	margin: 0 auto;
 }
 
-.section-1 .notfound .img1 {
-	width: 20%;
-	margin: 0 auto;
-	display: block;
-}
-
-.section-1 .notfound {
+.section-1 .para-1 {
 	width: 100%;
-	color: #fbc49c;
-}
-
-.section-1 .card {
-	margin: 2% auto;
-	border: none;
-}
-
-.section-1 .card-title {
-	text-transform: capitalize;
-}
-
-.section-1 .card-text {
 	text-align: justify;
 }
 
-.section-1 .card-body {
-	background: rgba(233, 228, 225, 0.2);
+@media screen and (max-width: 1300px) {
+	.section-1 .img {
+		width: 500px;
+		height: 500px;
+		margin: 0 auto;
+		display: block;
+		object-fit: cover;
+	}
 }
 
-.section-1 #myBtn {
-	position: fixed;
-	bottom: 361px;
-	right: 0;
-	z-index: 99;
-	padding: 10px 40px;
-	border-radius: 0;
+@media screen and (max-width: 800px) {
+	.section-1 .img {
+		width: 325px;
+		height: 325px;
+		margin: 0 auto;
+		display: block;
+		object-fit: cover;
+	}
 }
 
-.section-1 .category {
-	background-color: #e9e4e1;
-	border-radius: 2px;
-	padding: 5px;
-	text-align: center;
-	text-transform: capitalize;
-	width: 35%;
-	font-size: 12px;
-	margin-bottom: 0;
-}
-
-@media screen and (max-width: 700px) {
-	.section-1 #myBtn {
-		bottom: 20px;
-		right: 30px;
-		padding: 15px;
+/* On screens that are 600px wide or less, the background color is olive */
+@media screen and (max-width: 500px) {
+	.section-1 {
+		width: 95%;
 	}
 }
 
