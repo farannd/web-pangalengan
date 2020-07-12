@@ -12,7 +12,11 @@ router.get('/activity', (req, res) => {
 	Activities.find({}, (err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
-			res.render('activity/index');
+			res.render('activity/index', {
+				posts: null,
+				random1: null,
+				random2: null
+			});
 		} else if (!posts.length) {
 			res.render('activity/index', {
 				posts: null,

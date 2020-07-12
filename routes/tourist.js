@@ -9,7 +9,7 @@ router.get('/tourist-attraction', (req, res) => {
 	Tourist.find({}, (err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
-			res.redirect('/activity');
+			res.render('tourist/index', { posts: null });
 		} else if (!posts.length) {
 			res.render('tourist/index', { posts: null });
 		} else {
@@ -31,6 +31,99 @@ router.get('/tourist-attraction', (req, res) => {
 			}
 
 			res.render('tourist/index', { posts: posts.reverse() });
+		}
+	});
+});
+
+//index for attraction only
+router.get('/tourist-attraction/attraction', (req, res) => {
+	Tourist.find({ category: 'attraction' }, (err, posts) => {
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.render('tourist/attraction', { posts: null });
+		} else if (!posts.length) {
+			res.render('tourist/attraction', { posts: null });
+		} else {
+			let currentIndex = posts.length,
+				temporaryValue,
+				randomIndex;
+
+			//randomize array
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
+				// Pick a remaining element...
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				// And swap it with the current element.
+				temporaryValue = posts[currentIndex];
+				posts[currentIndex] = posts[randomIndex];
+				posts[randomIndex] = temporaryValue;
+			}
+
+			res.render('tourist/attraction', { posts: posts.reverse() });
+		}
+	});
+});
+
+//index for lodging only
+router.get('/tourist-attraction/lodging', (req, res) => {
+	Tourist.find({ category: 'lodging' }, (err, posts) => {
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.render('tourist/lodging', { posts: null });
+		} else if (!posts.length) {
+			res.render('tourist/lodging', { posts: null });
+		} else {
+			let currentIndex = posts.length,
+				temporaryValue,
+				randomIndex;
+
+			//randomize array
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
+				// Pick a remaining element...
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				// And swap it with the current element.
+				temporaryValue = posts[currentIndex];
+				posts[currentIndex] = posts[randomIndex];
+				posts[randomIndex] = temporaryValue;
+			}
+
+			res.render('tourist/lodging', { posts: posts.reverse() });
+		}
+	});
+});
+
+//index for restaurant only
+router.get('/tourist-attraction/restaurant', (req, res) => {
+	Tourist.find({ category: 'restaurant' }, (err, posts) => {
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.render('tourist/restaurant', { posts: null });
+		} else if (!posts.length) {
+			res.render('tourist/restaurant', { posts: null });
+		} else {
+			let currentIndex = posts.length,
+				temporaryValue,
+				randomIndex;
+
+			//randomize array
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
+				// Pick a remaining element...
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				// And swap it with the current element.
+				temporaryValue = posts[currentIndex];
+				posts[currentIndex] = posts[randomIndex];
+				posts[randomIndex] = temporaryValue;
+			}
+
+			res.render('tourist/restaurant', { posts: posts.reverse() });
 		}
 	});
 });
@@ -79,21 +172,6 @@ router.post('/tourist-attraction', middleware.upload.array('image', 12), (req, r
 			}
 		});
 	}
-});
-
-//index for attraction only
-router.get('/tourist-attraction/attraction', (req, res) => {
-	res.send('attraction');
-});
-
-//index for lodging only
-router.get('/tourist-attraction/lodging', (req, res) => {
-	res.send('lodging');
-});
-
-//index for restaurant only
-router.get('/tourist-attraction/restaurant', (req, res) => {
-	res.send('restaurant');
 });
 
 //show individual post
