@@ -97,6 +97,9 @@
 
       <div class="section-1">
         <div class="container">
+          <% if(post.author){ %>
+            <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
+          <%}%>
           <% if(post.image) {%>
             <img class='img' src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>">
           <%} else{ %>
@@ -117,13 +120,15 @@
             <a href='<%= post.file %>' class='btn button d-block mb-2'>Download File</a>
           <% }%>
           
-          <div class="d-flex flex-row justify-content-end">
-            <a class='btn btn-primary rounded-0' href='/activity/<%=post._id%>/edit'>Edit Post</a>
-            <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">
-              Delete
-            </button>
+          <% if(currentUser  && currentUser.isAdmin){ %>
+            <div class="d-flex flex-row justify-content-end">
+              <a class='btn btn-primary rounded-0' href='/activity/<%=post._id%>/edit'>Edit Post</a>
+              <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">
+                Delete
+              </button>
+            </div>
+          <% } %>
 
-          </div>
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

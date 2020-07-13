@@ -18,12 +18,12 @@ router.get('/gallery', (req, res) => {
 });
 
 //show new
-router.get('/gallery/new', (req, res) => {
+router.get('/gallery/new', middleware.isLoggedIn, (req, res) => {
 	res.render('gallery/new');
 });
 
 //post new
-router.post('/gallery', middleware.upload.array('image', 12), (req, res) => {
+router.post('/gallery', [ middleware.upload.array('image', 12), middleware.isLoggedIn ], (req, res) => {
 	if (req.files.length > 2) {
 		req.flash('warning', 'Max input for images is 2');
 		res.redirect('back');
@@ -42,7 +42,11 @@ router.post('/gallery', middleware.upload.array('image', 12), (req, res) => {
 		let obj = {
 			content: req.body.content,
 			like: 0,
-			image: [ ...images ]
+			image: [ ...images ],
+			author: {
+				id: req.user.id,
+				username: req.user.username
+			}
 		};
 
 		Galleries.create(obj, (err, doc) => {
@@ -90,7 +94,7 @@ router.post('/gallery/:id/like', (req, res) => {
 });
 
 //show edit
-router.get('/gallery/:id/edit', (req, res) => {
+router.get('/gallery/:id/edit', middleware.checkPostGalleryOwnership, (req, res) => {
 	let id = req.params.id;
 	Galleries.findById(id, (err, post) => {
 		if (err || !post) {
@@ -103,7 +107,7 @@ router.get('/gallery/:id/edit', (req, res) => {
 });
 
 //update post
-router.put('/gallery/:id', (req, res) => {
+router.put('/gallery/:id', middleware.checkPostGalleryOwnership, (req, res) => {
 	if (!req.body.content) {
 		req.flash('warning', 'Please input a content');
 		res.redirect('back');
@@ -127,7 +131,7 @@ router.put('/gallery/:id', (req, res) => {
 
 //delete
 //cascade delete post and comment associated with it
-router.delete('/gallery/:id', (req, res) => {
+router.delete('/gallery/:id', middleware.checkPostGalleryOwnership, (req, res) => {
 	let id = req.params.id;
 	Galleries.findById(id, (err, foundPost) => {
 		if (err || !foundPost) {

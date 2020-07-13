@@ -66,6 +66,16 @@ body {
 	width: 70%;
 }
 
+.section-1 .author {
+	font-size: 14px;
+	font-family: Ubuntu, sans-serif;
+	color: #b6b6b6;
+}
+
+.section-1 .author .username {
+	text-transform: capitalize;
+}
+
 .section-1 .img {
 	width: 100%;
 	margin: 0 auto;
@@ -92,10 +102,10 @@ body {
 	font-family: Ubuntu, sans-serif;
 	color: #7c3c21;
 	text-transform: capitalize;
+	margin-bottom: 0;
 }
 
 .section-1 .rules {
-	margin: 4% 0;
 	border: 0;
 	height: 1px;
 	width: 100%;

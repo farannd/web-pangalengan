@@ -113,9 +113,13 @@
                 </div>
               </div>
             </div>
-            <div class="d-flex flex-row justify-content-end">
-              <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
-            </div>
+            
+            <% if(currentUser && currentUser.isAdmin) { %>
+              <div class="d-flex flex-row justify-content-end">
+                <a class='btn btn-primary rounded-0' href='/about-us/edit'>Edit Post</a>
+              </div>
+            <%}%>
+            
           </div>
         </div>
       <%} else if(!posts) { %>

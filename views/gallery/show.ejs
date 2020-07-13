@@ -97,7 +97,9 @@
 
       <div class="section-1">
         <div class="container">
-
+          <% if(post.author){ %>
+            <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
+          <%}%>
           <% if(post.image.length>1) { %>
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -142,12 +144,14 @@
             </div> 
           </div>
 
-          <div class="d-flex flex-row justify-content-end">
-            <a class='btn btn-primary rounded-0' href='/gallery/<%= post._id %>/edit'>Edit Post</a>
-            <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">
-              Delete
-            </button>
-          </div>
+          <% if(currentUser && post.author.id.equals(currentUser.id) || currentUser && currentUser.isAdmin){%>
+            <div class="d-flex flex-row justify-content-end">
+              <a class='btn btn-primary rounded-0' href='/gallery/<%= post._id %>/edit'>Edit Post</a>
+              <button type="button" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#exampleModal">
+                Delete
+              </button>
+            </div>
+          <%} %>
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

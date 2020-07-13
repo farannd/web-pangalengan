@@ -10,14 +10,14 @@ var touristSchema = new mongoose.Schema({
 			data: Buffer,
 			contentType: String
 		}
-	]
-	// author: {
-	// 	id: {
-	// 		type: mongoose.Schema.Types.ObjectId,
-	// 		ref: 'User'
-	// 	},
-	// 	username: String
-	// }
+	],
+	author: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User'
+		},
+		username: String
+	}
 });
 
 module.exports = mongoose.model('Tourist', touristSchema);

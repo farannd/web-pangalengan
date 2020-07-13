@@ -73,6 +73,14 @@
       </div>
       </div >
 
+      <% if(currentUser && currentUser.isAdmin){ %> 
+        <div class="container my-3">
+          <div class="alert alert-success " role="alert">
+              You're an admin
+          </div>
+        </div>
+      <%} %>
+
       <% if(success && success.length>0 ){ %>
         <div class="container my-3">
           <div class="alert alert-success " role="alert">
@@ -99,13 +107,21 @@
         <div class="container-fluid">
           <div class="row justify-content-center align-items-start">
             <div class="col-12 col-lg-8 order-2 order-lg-1 activity" id='activity'>
-              <a href='/activity/new' class='btn button my-1 my-lg-5'>New Post</a>
+
+              <% if(currentUser  && currentUser.isAdmin){ %>
+              <a href='/activity/new' class='btn button mt-1 mt-lg-5'>New Post</a>
+              <% } %>
+
               <% if(posts){ %>
                 <% posts.forEach((post) => { %>
-                  <div class="activity">
+                  <div class="activity mt-2 mt-md-5">
 
                     <% if(post.title){ %>
                       <h1 class='heading-1'><%= post.title %></h1>
+                    <%}%>
+                    
+                    <% if(post.author){ %>
+                      <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
                     <%}%>
 
                     <% if(post.image) { %>
@@ -121,7 +137,7 @@
                     <div class="d-flex flex-row justify-content-end">
                       <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
                     </div>
-                    <hr class='rules'>
+                    <hr class='rules mt-2 mt-md-5'>
                   </div>
                 <% }) %>
               <% } %>
@@ -144,7 +160,10 @@
                           <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top" alt="images">
                         <% } %>
                         <div class="card-body">
-                          <a href="/activity/<%= random1._id %>"> <h5 class="card-title"><%= random1.title %></h5></a>
+                          <a href="/activity/<%= random1._id %>"> <h5 class="card-title m-0"><%= random1.title %></h5></a>
+                          <% if(random1.author){ %>
+                            <p class='author'><em>Posted by <span class='username'><%= random1.author.username %></span></em></p>
+                          <%}%>
                           <p class="card-text"><%= random1.content.slice(0,50) %> ...</p>
                         </div>
                       </div>
@@ -156,7 +175,10 @@
                           <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top" alt="images">
                         <% } %>
                         <div class="card-body">
-                          <a href="/activity/<%= random2._id %>"><h5 class="card-title"><%= random2.title %></h5></a>
+                          <a href="/activity/<%= random2._id %>"><h5 class="card-title m-0"><%= random2.title %></h5></a>
+                          <% if(random2.author){ %>
+                            <p class='author'><em>Posted by <span class='username'><%= random2.author.username %></span></em></p>
+                          <%}%>
                           <p class="card-text"><%= random2.content.slice(0,50) %> ...</p>
                         </div>
                       </div>

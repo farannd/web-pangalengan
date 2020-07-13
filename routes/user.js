@@ -18,14 +18,26 @@ router.post('/register', middleware.isLoggedOut, (req, res) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.redirect('/register');
-		} else if (doc) {
+		} else if (doc.length > 0) {
 			req.flash('warning', 'A user with the given email is already registered');
 			return res.redirect('/register');
 		} else {
-			let newUser = new User({
-				username: req.body.username,
-				email: req.body.email
-			});
+			let newUser = null;
+			if (req.body.secret === 'pangalengan') {
+				newUser = new User({
+					username: req.body.username.toLowerCase(),
+					email: req.body.email
+				});
+			} else if (req.body.secret === 'pangalenganadmin') {
+				newUser = new User({
+					username: req.body.username.toLowerCase(),
+					email: req.body.email,
+					isAdmin: true
+				});
+			} else {
+				req.flash('warning', 'Your secret code is invalid');
+				return res.redirect('/register');
+			}
 			User.register(newUser, req.body.password, (err, result) => {
 				if (err || !result) {
 					req.flash('warning', err.message);
@@ -170,7 +182,7 @@ router.post('/reset/:token', function(req, res) {
 					function(err, user) {
 						if (!user) {
 							req.flash('error', 'Password reset token is invalid or has expired.');
-							return res.redirect('back');
+							return res.redirect('/forgot');
 						}
 						if (req.body.password === req.body.confirm) {
 							user.setPassword(req.body.password, function(err) {

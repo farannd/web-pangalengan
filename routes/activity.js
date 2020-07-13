@@ -42,12 +42,12 @@ router.get('/activity', (req, res) => {
 });
 
 //show new
-router.get('/activity/new', (req, res) => {
+router.get('/activity/new', middleware.isAdminLoggedIn, (req, res) => {
 	res.render('activity/new');
 });
 
 //post new
-router.post('/activity', middleware.upload.single('image'), (req, res) => {
+router.post('/activity', [ middleware.upload.single('image'), middleware.isAdminLoggedIn ], (req, res) => {
 	if (!req.file) {
 		req.flash('warning', 'Please upload an image');
 		res.redirect('/activity/new');
@@ -66,6 +66,10 @@ router.post('/activity', middleware.upload.single('image'), (req, res) => {
 			image: {
 				data: req.file.buffer,
 				contentType: req.file.mimetype
+			},
+			author: {
+				id: req.user.id,
+				username: req.user.username
 			}
 		};
 		Activities.create(obj, (err, post) => {
@@ -85,7 +89,7 @@ router.get('/activity/:id', (req, res) => {
 	let id = req.params.id;
 	Activities.findById(id, (err, post) => {
 		if (err || !post) {
-			req.flash('warning', 'Something went wrong, please try again later');
+			req.flash('warning', 'Sorry. The post you want to access is never exist in the first place');
 			res.redirect('/activity');
 		} else {
 			res.render('activity/show', { post: post });
@@ -94,7 +98,7 @@ router.get('/activity/:id', (req, res) => {
 });
 
 //show edit
-router.get('/activity/:id/edit', (req, res) => {
+router.get('/activity/:id/edit', middleware.isAdminLoggedIn, (req, res) => {
 	let id = req.params.id;
 	Activities.findById(id, (err, post) => {
 		if (err || !post) {
@@ -107,7 +111,7 @@ router.get('/activity/:id/edit', (req, res) => {
 });
 
 //update post activity
-router.put('/activity/:id', middleware.upload.single('image'), (req, res) => {
+router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAdminLoggedIn ], (req, res) => {
 	if (!req.body.title) {
 		req.flash('warning', 'Please input a title');
 		res.redirect('/activity/new');
@@ -149,7 +153,7 @@ router.put('/activity/:id', middleware.upload.single('image'), (req, res) => {
 });
 
 //cascade delete post and comment associated with it
-router.delete('/activity/:id', (req, res) => {
+router.delete('/activity/:id', middleware.isAdminLoggedIn, (req, res) => {
 	let id = req.params.id;
 	Activities.findById(id, (err, foundPost) => {
 		if (err || !foundPost) {

@@ -79,7 +79,7 @@ body {
 }
 
 .section-1 .card-body {
-	height: 200px;
+	height: 230px;
 }
 
 .section-1 .img {
@@ -108,6 +108,16 @@ body {
 	z-index: 99;
 	padding: 10px 40px;
 	border-radius: 0;
+}
+
+.section-1 .author {
+	font-size: 14px;
+	font-family: Ubuntu, sans-serif;
+	color: #b6b6b6;
+}
+
+.section-1 .author .username {
+	text-transform: capitalize;
 }
 
 @media screen and (max-width: 500px) {

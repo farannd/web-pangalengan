@@ -129,12 +129,12 @@ router.get('/tourist-attraction/restaurant', (req, res) => {
 });
 
 //show new page
-router.get('/tourist-attraction/new', (req, res) => {
+router.get('/tourist-attraction/new', middleware.isLoggedIn, (req, res) => {
 	res.render('tourist/new');
 });
 
 //post new
-router.post('/tourist-attraction', middleware.upload.array('image', 12), (req, res) => {
+router.post('/tourist-attraction', [ middleware.upload.array('image', 12), middleware.isLoggedIn ], (req, res) => {
 	if (req.files.length > 2) {
 		req.flash('warning', 'Max input for images is 2');
 		res.redirect('back');
@@ -159,7 +159,11 @@ router.post('/tourist-attraction', middleware.upload.array('image', 12), (req, r
 			title: req.body.title.toLowerCase(),
 			category: req.body.category,
 			contact: req.body.contact,
-			image: images ? [ ...images ] : null
+			image: images ? [ ...images ] : null,
+			author: {
+				id: req.user.id,
+				username: req.user.username
+			}
 		};
 		Tourist.create(obj, (err, doc) => {
 			if (err || !doc) {
@@ -178,7 +182,7 @@ router.get('/tourist-attraction/:id', (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, post) => {
 		if (err || !post) {
-			req.flash('warning', 'Something went wrong, please try again later');
+			req.flash('warning', 'Sorry. The post you want to access is never exist in the first place');
 			res.redirect('/tourist-attraction');
 		} else {
 			res.render('tourist/show', { post: post });
@@ -187,7 +191,7 @@ router.get('/tourist-attraction/:id', (req, res) => {
 });
 
 //show edit
-router.get('/tourist-attraction/:id/edit', (req, res) => {
+router.get('/tourist-attraction/:id/edit', middleware.checkPostTouristOwnership, (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, post) => {
 		if (err || !post) {
@@ -200,61 +204,65 @@ router.get('/tourist-attraction/:id/edit', (req, res) => {
 });
 
 //post edit
-router.put('/tourist-attraction/:id', middleware.upload.array('image', 12), (req, res) => {
-	let id = req.params.id;
+router.put(
+	'/tourist-attraction/:id',
+	[ middleware.upload.array('image', 12), middleware.checkPostTouristOwnership ],
+	(req, res) => {
+		let id = req.params.id;
 
-	if (req.files.length > 2) {
-		req.flash('warning', 'Max input for images is 4');
-		res.redirect('back');
-	} else if (!req.body.title) {
-		req.flash('warning', 'Please input a title');
-		res.redirect('back');
-	} else if (!req.body.content) {
-		req.flash('warning', 'Please input a content');
-		res.redirect('back');
-	} else if (req.files.length < 3 && req.files.length > 0) {
-		let images = [];
-		for (let x = 0; x < req.files.length; x++) {
-			images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
+		if (req.files.length > 2) {
+			req.flash('warning', 'Max input for images is 4');
+			res.redirect('back');
+		} else if (!req.body.title) {
+			req.flash('warning', 'Please input a title');
+			res.redirect('back');
+		} else if (!req.body.content) {
+			req.flash('warning', 'Please input a content');
+			res.redirect('back');
+		} else if (req.files.length < 3 && req.files.length > 0) {
+			let images = [];
+			for (let x = 0; x < req.files.length; x++) {
+				images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
+			}
+			let obj = {
+				content: req.body.content,
+				title: req.body.title.toLowerCase(),
+				category: req.body.category,
+				contact: req.body.contact,
+				image: [ ...images ]
+			};
+			Tourist.findByIdAndUpdate(id, obj, (err, post) => {
+				if (err || !post) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('/tourist-attraction');
+				} else {
+					req.flash('success', 'You have successfully updated the post');
+					return res.redirect('/tourist-attraction/' + id);
+				}
+			});
+		} else if (req.files.length == 0) {
+			let obj = {
+				content: req.body.content,
+				title: req.body.title.toLowerCase(),
+				category: req.body.category,
+				contact: req.body.contact
+			};
+			Tourist.findByIdAndUpdate(id, obj, (err, post) => {
+				if (err || !post) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('/tourist-attraction/' + id);
+				} else {
+					req.flash('success', 'You have successfully updated the post');
+					return res.redirect('/tourist-attraction/' + id);
+				}
+			});
 		}
-		let obj = {
-			content: req.body.content,
-			title: req.body.title.toLowerCase(),
-			category: req.body.category,
-			contact: req.body.contact,
-			image: [ ...images ]
-		};
-		Tourist.findByIdAndUpdate(id, obj, (err, post) => {
-			if (err || !post) {
-				req.flash('warning', 'Something went wrong, please try again later');
-				res.redirect('/tourist-attraction');
-			} else {
-				req.flash('success', 'You have successfully updated the post');
-				return res.redirect('/tourist-attraction/' + id);
-			}
-		});
-	} else if (req.files.length == 0) {
-		let obj = {
-			content: req.body.content,
-			title: req.body.title.toLowerCase(),
-			category: req.body.category,
-			contact: req.body.contact
-		};
-		Tourist.findByIdAndUpdate(id, obj, (err, post) => {
-			if (err || !post) {
-				req.flash('warning', 'Something went wrong, please try again later');
-				res.redirect('/tourist-attraction/' + id);
-			} else {
-				req.flash('success', 'You have successfully updated the post');
-				return res.redirect('/tourist-attraction/' + id);
-			}
-		});
 	}
-});
+);
 
 //delete
 //cascade delete post and comment associated with it
-router.delete('/tourist-attraction/:id', (req, res) => {
+router.delete('/tourist-attraction/:id', middleware.checkPostTouristOwnership, (req, res) => {
 	let id = req.params.id;
 	Tourist.findById(id, (err, foundPost) => {
 		if (err || !foundPost) {

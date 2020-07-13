@@ -139,6 +139,16 @@ body {
 	background-image: linear-gradient(to right, #3a79ee, #007bff);
 }
 
+.section-1 .author {
+	font-size: 14px;
+	font-family: Ubuntu, sans-serif;
+	color: #b6b6b6;
+}
+
+.section-1 .author .username {
+	text-transform: capitalize;
+}
+
 /* footer */
 .footer {
 	background-color: #e9e4e1;

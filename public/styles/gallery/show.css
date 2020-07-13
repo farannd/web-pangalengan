@@ -100,6 +100,16 @@ body {
 	}
 }
 
+.section-1 .author {
+	font-size: 14px;
+	font-family: Ubuntu, sans-serif;
+	color: #b6b6b6;
+}
+
+.section-1 .author .username {
+	text-transform: capitalize;
+}
+
 /* On screens that are 600px wide or less, the background color is olive */
 @media screen and (max-width: 500px) {
 	.section-1 {

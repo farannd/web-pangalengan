@@ -139,7 +139,10 @@
                   <% } %>
 
                   <div class="card-body">
-                      <a href='/tourist-attraction/<%=post._id%>'> <h5 class="card-title text-center"> <%= post.title %></h5> </a>
+                      <a href='/tourist-attraction/<%=post._id%>'> <h5 class="card-title m-0"> <%= post.title %></h5> </a>
+                      <% if(post.author){ %>
+                        <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
+                      <%}%>
                       <p class="card-text"><%= post.content.slice(0,150) %> ...</p>
                       <p class='category'><%= post.category %></p>
                   </div>

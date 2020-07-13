@@ -94,6 +94,16 @@ body {
 	font-family: Ubuntu, sans-serif;
 }
 
+.section-1 .author {
+	font-size: 14px;
+	font-family: Ubuntu, sans-serif;
+	color: #b6b6b6;
+}
+
+.section-1 .author .username {
+	text-transform: capitalize;
+}
+
 @media screen and (max-width: 1300px) {
 	.section-1 .img {
 		width: 500px;
