@@ -4,6 +4,7 @@ var touristSchema = new mongoose.Schema({
 	content: String,
 	title: String,
 	category: String,
+	contact: String,
 	image: [
 		{
 			data: Buffer,

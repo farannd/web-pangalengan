@@ -24,8 +24,8 @@ router.get('/gallery/new', (req, res) => {
 
 //post new
 router.post('/gallery', middleware.upload.array('image', 12), (req, res) => {
-	if (req.files.length > 4) {
-		req.flash('warning', 'Max input for images is 4');
+	if (req.files.length > 2) {
+		req.flash('warning', 'Max input for images is 2');
 		res.redirect('back');
 	} else if (!req.body.content) {
 		req.flash('warning', 'Please input a content');

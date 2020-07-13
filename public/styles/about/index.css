@@ -68,34 +68,76 @@ body {
 	text-align: justify;
 }
 
+.section-1 .notfound .img {
+	width: 20%;
+	margin: 0 auto;
+	display: block;
+}
+
+.section-1 .notfound {
+	color: #fbc49c;
+}
+
 @media screen and (max-width: 500px) {
 	.section-1 {
 		width: 95%;
 	}
 }
 
-/* footer */
-.footer {
-	background-color: #e9e4e1;
-	padding: 2% 2%;
+.map {
+	margin: 0 auto;
+	padding-bottom: 2%;
+	text-align: center;
 }
 
-.footer .param-footer {
-	margin-bottom: 0;
-	margin-top: 5%;
-}
-
-.footer .mapouter {
+.map .mapouter {
 	position: relative;
-	text-align: right;
 	height: 250px;
 	width: 350px;
+	display: block;
+	margin: 0 auto;
 }
-.footer .gmap_canvas {
+.map .gmap_canvas {
 	overflow: hidden;
 	background: none !important;
 	height: 250px;
 	width: 350px;
+}
+
+/* footer */
+.footer {
+	background-color: #e9e4e1;
+}
+
+.footer .ul-footer {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+	overflow: hidden;
+}
+
+.footer .ul-footer li {
+	display: inline;
+	font-size: 14px;
+}
+
+.footer .ul-footer li a {
+	display: inline;
+	text-align: center;
+	color: black;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.footer .ul-footer li a:hover {
+	color: #0099ff;
+}
+
+.footer .param-footer {
+	margin-bottom: 0;
+}
+
+.footer .param-footer1 {
+	margin-bottom: 2%;
 }
 
 .footer .sponsor-img {
