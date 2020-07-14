@@ -106,7 +106,7 @@
                 <a class='atag' href="/gallery/<%= post._id %>">
                   <div class="card" style="width: 18rem;">
 
-                    <% if(post.image) { %>
+                    <% if(post.image.length>1) { %>
                       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                           <% for(let x=0;x<post.image.length;x++){ %>

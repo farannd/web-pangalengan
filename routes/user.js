@@ -4,10 +4,14 @@ const passport = require('passport');
 const async = require('async');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
-const User = require('../models/user');
 const middleware = require('../middleware/index');
 const router = express.Router();
+
+//models
+const User = require('../models/user');
+const Activities = require('../models/activity');
+const Tourist = require('../models/tourist');
+const Galleries = require('../models/gallery');
 
 //register
 router.get('/register', middleware.isLoggedOut, (req, res) => {
@@ -30,7 +34,7 @@ router.post('/register', middleware.isLoggedOut, (req, res) => {
 				});
 			} else if (req.body.secret === 'pangalenganadmin') {
 				newUser = new User({
-					username: req.body.username.toLowerCase(),
+					username: req.body.username,
 					email: req.body.email,
 					isAdmin: true
 				});
@@ -73,7 +77,7 @@ router.post('/login', middleware.isLoggedOut, (req, res, next) => {
 				return res.redirect('/login');
 			}
 			req.flash('success', 'Welcome back ' + user.username);
-			return res.redirect('/activity');
+			return res.redirect('/profile/' + user._id);
 		});
 	})(req, res, next);
 });
@@ -86,8 +90,67 @@ router.get('/logout', (req, res) => {
 });
 
 //profile
-router.get('/profile/:id_user', middleware.isLoggedIn, (req, res) => {
-	return res.render('user/profile');
+router.get('/profile/:id', middleware.isLoggedIn, (req, res) => {
+	let id = req.params.id;
+	User.findById(id, (err, user) => {
+		if (err || !user) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('back');
+		} else {
+			Activities.find({ 'author.username': user.username }, (err, posts) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('back');
+				} else if (!posts.length) {
+					res.render('user/profile', { user: user, posts: null });
+				} else {
+					res.render('user/profile', { user: user, posts: posts.reverse() });
+				}
+			});
+		}
+	});
+});
+
+router.get('/profile/:id/tourist-attraction', middleware.isLoggedIn, (req, res) => {
+	let id = req.params.id;
+	User.findById(id, (err, user) => {
+		if (err || !user) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('back');
+		} else {
+			Tourist.find({ 'author.username': user.username }, (err, posts) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('back');
+				} else if (!posts.length) {
+					res.render('user/profile_attraction', { user: user, posts: null });
+				} else {
+					res.render('user/profile_attraction', { user: user, posts: posts.reverse() });
+				}
+			});
+		}
+	});
+});
+
+router.get('/profile/:id/gallery', middleware.isLoggedIn, (req, res) => {
+	let id = req.params.id;
+	User.findById(id, (err, user) => {
+		if (err || !user) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('back');
+		} else {
+			Galleries.find({ 'author.username': user.username }, (err, posts) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('back');
+				} else if (!posts.length) {
+					res.render('user/profile_gallery', { user: user, posts: null });
+				} else {
+					res.render('user/profile_gallery', { user: user, posts: posts.reverse() });
+				}
+			});
+		}
+	});
 });
 
 //forgot

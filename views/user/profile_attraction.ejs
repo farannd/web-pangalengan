@@ -134,10 +134,10 @@
             <div class="navigasi container my-3 my-lg-5">
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link px-2 px-lg-5 active" href="/profile/<%=currentUser.id%>">Activity</a>
+                  <a class="nav-link px-2 px-lg-5" href="/profile/<%=currentUser.id%>">Activity</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link px-2 px-lg-5" href="/profile/<%=currentUser.id%>/tourist-attraction">Attraction</a>
+                  <a class="nav-link px-2 px-lg-5 active" href="/profile/<%=currentUser.id%>/tourist-attraction">Attraction</a>
                 </li>
                 </li>
                 <li class="nav-item">
@@ -169,11 +169,23 @@
 
                     </div>
                     <div class="col-12 col-md-4 order-1 order-lg-2 justify-content-center">
-                      <% if(post.image) { %>
-                        <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top" alt="images">
-                      <% } else{ %>
-                        <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top" alt="images">
+
+                      <% if(post.image.length>1) { %>
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                          <div class="carousel-inner">
+                            <% for(let x=0;x<post.image.length;x++){ %>
+                              <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                                <img class='img' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
+                              </div>
+                            <% } %>
+                          </div>
+                        </div> 
+                      <% } else if (post.image.length == 1){ %>
+                        <img class='img' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
+                      <% } else { %>
+                        <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img" alt="images">
                       <% } %>
+                      
                     </div>
                   </div>
                   <hr class='rules mt-3 mt-md-5'>

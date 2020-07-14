@@ -5,7 +5,7 @@ const Galleries = require('../models/gallery');
 
 //index
 router.get('/gallery', (req, res) => {
-	Galleries.find({}, (err, posts) => {
+	Galleries.find().sort({ _id: -1 }).limit(60).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('gallery/index', { posts: null });

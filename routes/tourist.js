@@ -6,7 +6,7 @@ const Tourist = require('../models/tourist');
 
 //index
 router.get('/tourist-attraction', (req, res) => {
-	Tourist.find({}, (err, posts) => {
+	Tourist.find().sort({ _id: -1 }).limit(60).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/index', { posts: null });
@@ -37,7 +37,7 @@ router.get('/tourist-attraction', (req, res) => {
 
 //index for attraction only
 router.get('/tourist-attraction/attraction', (req, res) => {
-	Tourist.find({ category: 'attraction' }, (err, posts) => {
+	Tourist.find({ category: 'attraction' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/attraction', { posts: null });
@@ -68,7 +68,7 @@ router.get('/tourist-attraction/attraction', (req, res) => {
 
 //index for lodging only
 router.get('/tourist-attraction/lodging', (req, res) => {
-	Tourist.find({ category: 'lodging' }, (err, posts) => {
+	Tourist.find({ category: 'lodging' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/lodging', { posts: null });
@@ -99,7 +99,7 @@ router.get('/tourist-attraction/lodging', (req, res) => {
 
 //index for restaurant only
 router.get('/tourist-attraction/restaurant', (req, res) => {
-	Tourist.find({ category: 'restaurant' }, (err, posts) => {
+	Tourist.find({ category: 'restaurant' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/restaurant', { posts: null });

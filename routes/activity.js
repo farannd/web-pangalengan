@@ -9,7 +9,7 @@ const Activities = require('../models/activity');
 //Routes
 //index
 router.get('/activity', (req, res) => {
-	Activities.find({}, (err, posts) => {
+	Activities.find().sort({ _id: -1 }).limit(30).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('activity/index', {

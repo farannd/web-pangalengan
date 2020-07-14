@@ -17,24 +17,24 @@ body {
 	background-color: #e9e4e1 !important;
 }
 
-.navbar-brand {
+.navbar .navbar-brand {
 	color: #7c3c21 !important;
 	font-family: Pacifico, sans-serif;
 	font-size: 35px;
 }
 
-.nav-link {
+.navbar .nav-link {
 	font-size: 16px;
 	margin: 15px;
 	color: black !important;
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
 	color: #ee8137 !important;
 }
 
-.active .nav-link {
+.navbar .active .nav-link {
 	color: #ee8137 !important;
 }
 
@@ -49,61 +49,26 @@ body {
 	color: #fdede2;
 	font-family: Righteous, sans-serif;
 	font-size: 50px;
+	text-transform: capitalize;
 }
 
 /* section 1 */
-.section-1 {
-	padding: 5% 0;
-}
-
-.section-1 .atag {
-	text-decoration: none;
-	color: black;
-}
-
-.section-1 .card {
-	background-color: white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	margin-bottom: 25px;
-	border-radius: 0;
-	border: none;
-	margin: 5% auto;
-}
-
-.section-1 .card:hover {
-	box-shadow: 0 4px 8px 0 rgba(3, 93, 167, 0.2), 0 6px 20px 0 rgba(3, 170, 192, 0.19);
-}
-
-.section-1 .card-text {
-	text-align: justify;
-}
-
-.section-1 .img {
-	width: 288px;
-	height: 288px;
-	object-fit: cover;
-	display: block;
-	margin: 0 auto;
-}
-
-.section-1 .notfound .img1 {
-	width: 20%;
+.section-1 .profile .img {
+	width: 60%;
 	margin: 0 auto;
 	display: block;
 }
 
-.section-1 .notfound {
-	width: 100%;
-	color: #fbc49c;
+.section-1 .profile .profile-content {
+	width: 70%;
+	margin: 0 auto;
+	display: block;
 }
 
-.section-1 #myBtn {
-	position: fixed;
-	bottom: 361px;
-	right: 0;
-	z-index: 99;
-	padding: 10px 40px;
-	border-radius: 0;
+.section-1 .activity {
+	margin: 0 auto;
+	padding: 0 1%;
+	width: 90%;
 }
 
 .section-1 .author {
@@ -116,18 +81,41 @@ body {
 	text-transform: capitalize;
 }
 
-@media screen and (max-width: 500px) {
-	.section-1 {
-		width: 95%;
-	}
+.section-1 .img {
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+	object-fit: cover;
 }
 
-@media screen and (max-width: 700px) {
-	.section-1 #myBtn {
-		bottom: 20px;
-		right: 30px;
-		padding: 15px;
-	}
+.section-1 .notfound .img {
+	width: 20%;
+	margin: 0 auto;
+	display: block;
+}
+
+.section-1 .notfound {
+	color: #fbc49c;
+}
+
+.section-1 .para-1 {
+	padding: 2% 0;
+	text-align: justify;
+	margin: 2% auto;
+}
+
+.section-1 .heading-1 {
+	font-family: Ubuntu, sans-serif;
+	color: #7c3c21;
+	text-transform: capitalize;
+	margin-bottom: 0;
+}
+
+.section-1 .rules {
+	border: 0;
+	height: 1px;
+	width: 100%;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(5, 4, 15, 0.75), rgba(0, 0, 0, 0)) !important;
 }
 
 /* footer */

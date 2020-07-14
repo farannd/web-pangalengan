@@ -24,6 +24,8 @@ const galleryRoutes = require('./routes/gallery');
 
 //model requirement
 const User = require('./models/user');
+const Galleries = require('./models/gallery');
+const Activities = require('./models/activity');
 
 //mongoose configuration
 const url = process.env.DBURL;
@@ -78,7 +80,35 @@ app.use(galleryRoutes);
 
 //landing page
 app.get('/', (req, res) => {
-	res.render('index');
+	Galleries.find().sort({ _id: -1 }).limit(15).exec((err, postsGalleries) => {
+		let image;
+		if (err) {
+			req.flash('warning', 'Something went wrong, please try again later');
+			res.redirect('/404');
+		} else if (!postsGalleries.length) {
+			image = null;
+		} else {
+			let mostLike = 0;
+			for (let x = 0; x < postsGalleries.length; x++) {
+				if (postsGalleries[x].like >= mostLike) {
+					mostLike = postsGalleries[x].like;
+					image = postsGalleries[x].image;
+				}
+			}
+		}
+		Activities.find().sort({ _id: -1 }).limit(3).exec((err, postsActivities) => {
+			let activities;
+			if (err) {
+				req.flash('warning', 'Something went wrong, please try again later');
+				res.redirect('/404');
+			} else if (!postsActivities.length) {
+				activities = null;
+			} else {
+				activities = postsActivities;
+				res.render('index', { image: image, posts: activities });
+			}
+		});
+	});
 });
 
 //404

@@ -165,10 +165,25 @@
             <div class="col-12 col-md-6 content order-2 order-md-1">
               <h1 class='heading-2'>Photo of the Day</h1>
               <p> Explore more in our gallery</p>
-              <a href='#' class="btn btn-primary">Gallery</a>
+              <a href='/gallery' class="btn btn-primary">Gallery</a>
             </div>
             <div class="col-12 col-md-6 order-1 order-md-2">
-              <img data-aos="fade-left" data-aos-duration="1000" class='img mt-2' src='https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg'>
+
+              <% if(image.length>1) { %>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <% for(let x=0;x<image.length;x++){ %>
+                      <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                        <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3' src="data:image/<%= image[x].contentType%>;base64,<%= image[x].data.toString('base64')%>">
+                      </div>
+                    <% } %>
+                  </div>
+                </div> 
+              <% } else if (image.length == 1){ %>
+                <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3' src="data:image/<%= image[0].contentType%>;base64,<%= image[0].data.toString('base64')%>">
+              <% } else { %>
+                <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" data-aos="fade-left" data-aos-duration="1000" class='img mt-3' alt="images">
+              <% } %>
             </div>
           </div>
         </div>
@@ -187,6 +202,54 @@
           </div>
         </div>
       </div>
+
+      <% if(posts) { %>
+      <div class="section-4">
+        <div class="container">
+
+          <a href="/activity"><h1 class='heading-4'>What's on Pangalengan?</h1></a>
+  
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+  
+                <% for (let x=0;x<posts.length;x++) { %>
+                <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                    <div class="activity mb-2 mb-md-5">
+                      <div class="row justify-content-center align-items-center">
+                        <div class="col-12 col-md-8 order-2 order-lg-1 justify-content-center">
+                          <% if(posts[x].title){ %>
+                            <h1 class='heading-1'><%= posts[x].title %></h1>
+                          <%}%>
+                          
+                          <% if(posts[x].author){ %>
+                            <p class='author'><em>Posted by <span class='username'><%= posts[x].author.username %></span></em></p>
+                          <%}%>           
+        
+                          <% if(posts[x].content){ %>
+                            <p class='para-4'><%= posts[x].content.slice(0,250) %> ...</p>
+                          <%}%>
+        
+                          <div class="d-flex flex-row justify-content-end">
+                            <a href='/activity/<%= posts[x]._id %>' class='btn btn-primary'>Read More</a>
+                          </div>
+    
+                        </div>
+                        <div class="col-12 col-md-4 order-1 order-lg-2 justify-content-center">
+                          <% if(posts[x].image) { %>
+                            <img src="data:image/<%= posts[x].image.contentType%>;base64,<%= posts[x].image.data.toString('base64')%>" class="img mt-3" alt="images">
+                          <% } else{ %>
+                            <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img mt-3" alt="images">
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+              </div>
+            </div> 
+          </div>
+        </div>
+      <%}%>
     </main>
 
     <footer>
@@ -221,6 +284,9 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
+      $('.carousel').carousel({
+        interval: 3000
+      })
     </script>
   </body>
 </html>
