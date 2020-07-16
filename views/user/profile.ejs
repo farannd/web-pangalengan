@@ -179,6 +179,18 @@
                   <hr class='rules mt-3 mt-md-5'>
                 </div>
               <% }) %>
+
+              <% if(page){%>
+                <div class="paginate d-flex flex-row justify-content-center my-3 my-lg-5">
+                  <% if(page > 1) { %>
+                    <a href="/profile/<%= user._id %>?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
+                  <%}%>
+                  <% if(posts.length == 10) {%>
+                    <a href="/profile/<%= user._id %>?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
+                  <%}%>
+                </div>
+              <%}%>
+
             <% } else { %>
               <div class="notfound my-3 my-lg-5">
                 <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/frown_euqxwu.png" alt="frown" class='img'>

@@ -9,7 +9,7 @@ const Activities = require('../models/activity');
 //Routes
 //index
 router.get('/activity', (req, res) => {
-	Activities.find().sort({ _id: -1 }).limit(30).exec((err, posts) => {
+	Activities.find().sort({ _id: -1 }).limit(30).exec((err, postsRandom) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('activity/index', {
@@ -17,25 +17,56 @@ router.get('/activity', (req, res) => {
 				random1: null,
 				random2: null
 			});
-		} else if (!posts.length) {
+		} else if (!postsRandom.length) {
 			res.render('activity/index', {
 				posts: null,
 				random1: null,
-				random2: null
+				random2: null,
+				page: null
 			});
 		} else {
-			num1 = Math.floor(Math.random() * posts.length);
-			num2 = Math.floor(Math.random() * posts.length);
+			//paginate
+			let page = 1;
+			let skip = 0;
+			let limit = 10;
+			if (req.query.page) {
+				page = parseInt(req.query.page, 10);
+				skip = (page - 1) * limit;
+			}
+
+			//randomposts
+			let num1 = Math.floor(Math.random() * postsRandom.length);
+			let num2 = Math.floor(Math.random() * postsRandom.length);
 			// run this loop until numberOne is different than numberThree
-			if (posts.length > 1) {
+			if (postsRandom.length > 1) {
 				do {
-					num1 = Math.floor(Math.random() * posts.length);
+					num1 = Math.floor(Math.random() * postsRandom.length);
 				} while (num1 === num2);
 			}
-			res.render('activity/index', {
-				posts: posts.reverse(),
-				random1: posts[num1],
-				random2: posts[num2]
+
+			Activities.find().sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.render('activity/index', {
+						posts: null,
+						random1: null,
+						random2: null
+					});
+				} else if (!posts.length) {
+					res.render('activity/index', {
+						posts: null,
+						random1: null,
+						random2: null,
+						page: null
+					});
+				} else {
+					res.render('activity/index', {
+						posts: posts,
+						random1: postsRandom[num1],
+						random2: postsRandom[num2],
+						page: page
+					});
+				}
 			});
 		}
 	});

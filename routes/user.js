@@ -92,63 +92,99 @@ router.get('/logout', (req, res) => {
 //profile
 router.get('/profile/:id', middleware.isLoggedIn, (req, res) => {
 	let id = req.params.id;
+	//paginate
+	let page = 1;
+	let skip = 0;
+	let limit = 10;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
 	User.findById(id, (err, user) => {
 		if (err || !user) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.redirect('back');
 		} else {
-			Activities.find({ 'author.username': user.username }, (err, posts) => {
-				if (err) {
-					req.flash('warning', 'Something went wrong, please try again later');
-					res.redirect('back');
-				} else if (!posts.length) {
-					res.render('user/profile', { user: user, posts: null });
-				} else {
-					res.render('user/profile', { user: user, posts: posts.reverse() });
-				}
-			});
+			Activities.find({ 'author.username': user.username })
+				.sort({ _id: -1 })
+				.limit(limit)
+				.skip(skip)
+				.exec((err, posts) => {
+					if (err) {
+						req.flash('warning', 'Something went wrong, please try again later');
+						res.redirect('back');
+					} else if (!posts.length) {
+						res.render('user/profile', { user: user, posts: null, page: null });
+					} else {
+						res.render('user/profile', { user: user, posts: posts, page: page });
+					}
+				});
 		}
 	});
 });
 
 router.get('/profile/:id/tourist-attraction', middleware.isLoggedIn, (req, res) => {
 	let id = req.params.id;
+	//paginate
+	let page = 1;
+	let skip = 0;
+	let limit = 10;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
 	User.findById(id, (err, user) => {
 		if (err || !user) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.redirect('back');
 		} else {
-			Tourist.find({ 'author.username': user.username }, (err, posts) => {
-				if (err) {
-					req.flash('warning', 'Something went wrong, please try again later');
-					res.redirect('back');
-				} else if (!posts.length) {
-					res.render('user/profile_attraction', { user: user, posts: null });
-				} else {
-					res.render('user/profile_attraction', { user: user, posts: posts.reverse() });
-				}
-			});
+			Tourist.find({ 'author.username': user.username })
+				.sort({ _id: -1 })
+				.limit(limit)
+				.skip(skip)
+				.exec((err, posts) => {
+					if (err) {
+						req.flash('warning', 'Something went wrong, please try again later');
+						res.redirect('back');
+					} else if (!posts.length) {
+						res.render('user/profile_attraction', { user: user, posts: null, page: null });
+					} else {
+						res.render('user/profile_attraction', { user: user, posts: posts, page: page });
+					}
+				});
 		}
 	});
 });
 
 router.get('/profile/:id/gallery', middleware.isLoggedIn, (req, res) => {
 	let id = req.params.id;
+	//paginate
+	let page = 1;
+	let skip = 0;
+	let limit = 10;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
 	User.findById(id, (err, user) => {
 		if (err || !user) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.redirect('back');
 		} else {
-			Galleries.find({ 'author.username': user.username }, (err, posts) => {
-				if (err) {
-					req.flash('warning', 'Something went wrong, please try again later');
-					res.redirect('back');
-				} else if (!posts.length) {
-					res.render('user/profile_gallery', { user: user, posts: null });
-				} else {
-					res.render('user/profile_gallery', { user: user, posts: posts.reverse() });
-				}
-			});
+			Galleries.find({ 'author.username': user.username })
+				.sort({ _id: -1 })
+				.limit(limit)
+				.skip(skip)
+				.exec((err, posts) => {
+					if (err) {
+						req.flash('warning', 'Something went wrong, please try again later');
+						res.redirect('back');
+					} else if (!posts.length) {
+						res.render('user/profile_gallery', { user: user, posts: null, page: null });
+					} else {
+						res.render('user/profile_gallery', { user: user, posts: posts, page: page });
+					}
+				});
 		}
 	});
 });

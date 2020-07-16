@@ -5,14 +5,22 @@ const Galleries = require('../models/gallery');
 
 //index
 router.get('/gallery', (req, res) => {
-	Galleries.find().sort({ _id: -1 }).limit(60).exec((err, posts) => {
+	let page = 1;
+	let skip = 0;
+	let limit = 9;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
+
+	Galleries.find().sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('gallery/index', { posts: null });
 		} else if (!posts.length) {
-			res.render('gallery/index', { posts: null });
+			res.render('gallery/index', { posts: null, page: null });
 		} else {
-			res.render('gallery/index', { posts: posts.reverse() });
+			res.render('gallery/index', { posts: posts, page: page });
 		}
 	});
 });

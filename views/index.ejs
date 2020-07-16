@@ -205,42 +205,40 @@
 
       <% if(posts) { %>
       <div class="section-4">
-        <div class="container">
+        <div class="container px-lg-5">
 
           <a href="/activity"><h1 class='heading-4'>What's on Pangalengan?</h1></a>
-  
+          
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-  
                 <% for (let x=0;x<posts.length;x++) { %>
                 <div class="carousel-item <%= x== 0 ? 'active' : null %>">
                     <div class="activity mb-2 mb-md-5">
                       <div class="row justify-content-center align-items-center">
-                        <div class="col-12 col-md-8 order-2 order-lg-1 justify-content-center">
-                          <% if(posts[x].title){ %>
-                            <h1 class='heading-1'><%= posts[x].title %></h1>
-                          <%}%>
-                          
-                          <% if(posts[x].author){ %>
-                            <p class='author'><em>Posted by <span class='username'><%= posts[x].author.username %></span></em></p>
-                          <%}%>           
-        
-                          <% if(posts[x].content){ %>
-                            <p class='para-4'><%= posts[x].content.slice(0,250) %> ...</p>
-                          <%}%>
-        
-                          <div class="d-flex flex-row justify-content-end">
-                            <a href='/activity/<%= posts[x]._id %>' class='btn btn-primary'>Read More</a>
-                          </div>
-    
-                        </div>
-                        <div class="col-12 col-md-4 order-1 order-lg-2 justify-content-center">
+                        <div class="col-12 col-lg-4 justify-content-center">
                           <% if(posts[x].image) { %>
                             <img src="data:image/<%= posts[x].image.contentType%>;base64,<%= posts[x].image.data.toString('base64')%>" class="img mt-3" alt="images">
                           <% } else{ %>
                             <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img mt-3" alt="images">
                           <% } %>
                         </div>
+                        <div class="col-12 col-lg-8 justify-content-center pl-lg-3">
+                            <% if(posts[x].title){ %>
+                              <h1 class='heading-1'><%= posts[x].title %></h1>
+                            <%}%>
+                            
+                            <% if(posts[x].author){ %>
+                              <p class='author'><em>Posted by <span class='username'><%= posts[x].author.username %></span></em></p>
+                            <%}%>           
+          
+                            <% if(posts[x].content){ %>
+                              <p class='para-4'><%= posts[x].content.slice(0,250) %> ...</p>
+                            <%}%>
+          
+                            <div class="d-flex flex-row justify-content-end justify-content-lg-start">
+                              <a href='/activity/<%= posts[x]._id %>' class='btn btn-primary'>Read More</a>
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>

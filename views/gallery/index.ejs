@@ -98,9 +98,9 @@
       <!-- input ure content -->
       <div class="section-1 container">
         <a id="myBtn" class= 'btn btn-primary' href='/gallery/new'>New Post</a>
-        <div class="row justify-content-center align-items-center">
-          
-          <% if(posts){ %>
+        
+        <% if(posts){ %>
+          <div class="row justify-content-center align-items-start">  
             <% posts.forEach(post=>{ %>
               <div class="col-12 col-md-6 col-lg-4 justify-content-center align-items-center">
                 <a class='atag' href="/gallery/<%= post._id %>">
@@ -144,18 +144,28 @@
                 </a>
               </div>
             <% }); %>
-          <% } else { %>
-            <div class="notfound my-3 my-lg-5">
-              <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/frown_euqxwu.png" alt="frown" class='img1'>
-              <h1 class='text-center'>There are still no posts yet</h1>
+          </div>          
+          
+          <% if(page){%>
+            <div class="paginate d-flex flex-row justify-content-center mt-3 mt-lg-5">
+              <% if(page > 1) { %>
+                <a href="/gallery?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
+                <%}%>
+              <% if(posts.length == 9) {%>
+                  <a href="/gallery?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
+              <%}%>
             </div>
-          <% } %>
-
-        </div>
+          <%}%>
+                
+        <% } else { %>
+          <div class="notfound my-3 my-lg-5">
+            <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/frown_euqxwu.png" alt="frown" class='img1'>
+            <h1 class='text-center'>There are still no posts yet</h1>
+          </div>
+        <% } %>
       </div>
-      
     </main>
-
+                
     <footer>
       <div class="container-fluid footer text-center p-3 p-md-5">
         <ul class='ul-footer mb-4'>

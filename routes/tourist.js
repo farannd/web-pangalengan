@@ -6,12 +6,20 @@ const Tourist = require('../models/tourist');
 
 //index
 router.get('/tourist-attraction', (req, res) => {
-	Tourist.find().sort({ _id: -1 }).limit(60).exec((err, posts) => {
+	let page = 1;
+	let skip = 0;
+	let limit = 9;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
+
+	Tourist.find().sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/index', { posts: null });
 		} else if (!posts.length) {
-			res.render('tourist/index', { posts: null });
+			res.render('tourist/index', { posts: null, page: null });
 		} else {
 			let currentIndex = posts.length,
 				temporaryValue,
@@ -30,19 +38,27 @@ router.get('/tourist-attraction', (req, res) => {
 				posts[randomIndex] = temporaryValue;
 			}
 
-			res.render('tourist/index', { posts: posts.reverse() });
+			res.render('tourist/index', { posts: posts, page: page });
 		}
 	});
 });
 
 //index for attraction only
 router.get('/tourist-attraction/attraction', (req, res) => {
-	Tourist.find({ category: 'attraction' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
+	let page = 1;
+	let skip = 0;
+	let limit = 9;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
+
+	Tourist.find({ category: 'attraction' }).sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/attraction', { posts: null });
 		} else if (!posts.length) {
-			res.render('tourist/attraction', { posts: null });
+			res.render('tourist/attraction', { posts: null, page: null });
 		} else {
 			let currentIndex = posts.length,
 				temporaryValue,
@@ -61,19 +77,27 @@ router.get('/tourist-attraction/attraction', (req, res) => {
 				posts[randomIndex] = temporaryValue;
 			}
 
-			res.render('tourist/attraction', { posts: posts.reverse() });
+			res.render('tourist/attraction', { posts: posts, page: page });
 		}
 	});
 });
 
 //index for lodging only
 router.get('/tourist-attraction/lodging', (req, res) => {
-	Tourist.find({ category: 'lodging' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
+	let page = 1;
+	let skip = 0;
+	let limit = 9;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
+
+	Tourist.find({ category: 'lodging' }).sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/lodging', { posts: null });
 		} else if (!posts.length) {
-			res.render('tourist/lodging', { posts: null });
+			res.render('tourist/lodging', { posts: null, page: null });
 		} else {
 			let currentIndex = posts.length,
 				temporaryValue,
@@ -92,19 +116,26 @@ router.get('/tourist-attraction/lodging', (req, res) => {
 				posts[randomIndex] = temporaryValue;
 			}
 
-			res.render('tourist/lodging', { posts: posts.reverse() });
+			res.render('tourist/lodging', { posts: posts, page: page });
 		}
 	});
 });
 
 //index for restaurant only
 router.get('/tourist-attraction/restaurant', (req, res) => {
-	Tourist.find({ category: 'restaurant' }).sort({ _id: -1 }).limit(60).exec((err, posts) => {
+	let page = 1;
+	let skip = 0;
+	let limit = 9;
+	if (req.query.page) {
+		page = parseInt(req.query.page, 10);
+		skip = (page - 1) * limit;
+	}
+	Tourist.find({ category: 'restaurant' }).sort({ _id: -1 }).limit(limit).skip(skip).exec((err, posts) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('tourist/restaurant', { posts: null });
 		} else if (!posts.length) {
-			res.render('tourist/restaurant', { posts: null });
+			res.render('tourist/restaurant', { posts: null, page: null });
 		} else {
 			let currentIndex = posts.length,
 				temporaryValue,
@@ -123,7 +154,7 @@ router.get('/tourist-attraction/restaurant', (req, res) => {
 				posts[randomIndex] = temporaryValue;
 			}
 
-			res.render('tourist/restaurant', { posts: posts.reverse() });
+			res.render('tourist/restaurant', { posts: posts, page: page });
 		}
 	});
 });
