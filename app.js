@@ -78,6 +78,24 @@ app.use(userRoutes);
 app.use(touristRoutes);
 app.use(galleryRoutes);
 
+// Add a handler to inspect the req.secure flag (see
+// http://expressjs.com/api#req.secure). This allows us
+// to know whether the request was via http or https.
+
+app.use(function(req, res, next) {
+	if (req.secure) {
+		// request was via https, so do no special handling
+		next();
+	} else {
+		if (req.headers.host == 'localhost:3000') {
+			next();
+		} else {
+			// request was via http, so redirect to https
+			res.redirect('https://' + req.headers.host + req.url);
+		}
+	}
+});
+
 //landing page
 app.get('/', (req, res) => {
 	Galleries.find().sort({ _id: -1 }).limit(15).exec((err, postsGalleries) => {
