@@ -11,6 +11,8 @@ const LocalStrategy = require('passport-local');
 const favicon = require('serve-favicon');
 const MongoStore = require('connect-mongo')(session);
 const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 //general confid
 const app = express();
@@ -42,6 +44,7 @@ mongoose.connect(url, {
 app.use(
 	session({
 		secret: 'kepoin aja',
+		name: 'kangenmantan',
 		resave: false,
 		saveUninitialized: false,
 		store: new MongoStore({
@@ -50,6 +53,7 @@ app.use(
 			autoRemoveInterval: 10
 		}),
 		cookie: {
+			httpOnly: true,
 			secure: true,
 			maxAge: 24 * 60 * 60 * 1000,
 			sameSite: 'none'
@@ -58,13 +62,14 @@ app.use(
 );
 
 //general app configuration
+app.use(helmet());
 app.use(compression());
-app.use(cookieParser('secret'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
 app.set('view engine', 'ejs');
+app.use(cookieParser('secret'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 //authenticate config
@@ -115,6 +120,15 @@ app.use(function(req, res, next) {
 		}
 	}
 });
+
+//dos handling
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100 // limit each IP to 100 requests per windowMs
+});
+
+//  apply to all requests
+app.use(limiter);
 
 //landing page
 app.get('/', (req, res) => {

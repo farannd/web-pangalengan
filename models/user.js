@@ -10,6 +10,6 @@ var userSchema = new mongoose.Schema({
 	resetPasswordExpires: Date
 });
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose, { maxAttempts: 5 });
 
 module.exports = mongoose.model('User', userSchema);
