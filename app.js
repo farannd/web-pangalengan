@@ -44,9 +44,14 @@ app.use(
 		secret: 'kepoin aja',
 		resave: false,
 		saveUninitialized: false,
-		store: new MongoStore({ mongooseConnection: mongoose.connection }),
+		store: new MongoStore({
+			mongooseConnection: mongoose.connection,
+			autoRemove: 'interval',
+			autoRemoveInterval: 10
+		}),
 		cookie: {
 			secure: true,
+			maxAge: 24 * 60 * 60 * 1000,
 			sameSite: 'none'
 		}
 	})
