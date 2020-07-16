@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const favicon = require('serve-favicon');
+const MongoStore = require('connect-mongo')(session);
+const compression = require('compression');
 
 //general confid
 const app = express();
@@ -41,17 +43,23 @@ app.use(
 	session({
 		secret: 'kepoin aja',
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
+		store: new MongoStore({ mongooseConnection: mongoose.connection }),
+		cookie: {
+			secure: true,
+			sameSite: 'none'
+		}
 	})
 );
 
 //general app configuration
+app.use(compression());
+app.use(cookieParser('secret'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
 app.set('view engine', 'ejs');
-app.use(cookieParser('secret'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 //authenticate config
