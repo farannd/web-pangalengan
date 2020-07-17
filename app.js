@@ -155,7 +155,7 @@ app.get('/', (req, res) => {
 				res.redirect('/404');
 			} else if (!postsActivities.length) {
 				activities = null;
-				res.render('index', { image: null, posts: null });
+				res.render('index', { image: image, posts: null });
 			} else {
 				activities = postsActivities;
 				res.render('index', { image: image, posts: activities });
