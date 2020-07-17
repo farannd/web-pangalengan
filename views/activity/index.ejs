@@ -108,7 +108,7 @@
                 <div class="d-none d-lg-block">
                   <div class="randomactivity pb-5">
                       <h5>For you</h5>
-                      <div class="card my-3" style="width: 18rem;">
+                      <div class="card my-3">
                         <% if(random1.image) { %>
                           <img src='data:image/<%= random1.image.contentType%>;base64,<%= random1.image.data.toString('base64')%>' class="card-img-top" alt="...">
                         <% } else{ %>
@@ -123,7 +123,7 @@
                         </div>
                       </div>
   
-                      <div class="card my-3" style="width: 18rem;">
+                      <div class="card my-3">
                         <% if(random2.image) { %>
                           <img src='data:image/<%= random2.image.contentType%>;base64,<%= random2.image.data.toString('base64')%>' class="card-img-top" alt="...">
                         <% } else{ %>
@@ -148,34 +148,41 @@
               <a href='/activity/new' class='btn button mt-1 mt-lg-5'>New Post</a>
               <% } %>
 
+              
               <% if(posts){ %>
                 <% posts.forEach((post) => { %>
-                  <div class="activity mt-2 mt-md-5">
-
-                    <% if(post.title){ %>
-                      <h1 class='heading-1'><%= post.title %></h1>
-                    <%}%>
-                    
-                    <% if(post.author){ %>
-                      <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
-                      <%}%>
-                      
-                      <% if(post.image) { %>
-                        <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top" alt="images">
-                        <% } else{ %>
-                          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top" alt="images">
-                    <% } %>
-
-                    <% if(post.content){ %>
-                      <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
-                    <%}%>
-
-                    <div class="d-flex flex-row justify-content-end">
-                      <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
+                
+                <div class="activity mt-2 mt-md-5">
+                  <div class="row justify-content-center align-items-center">
+                      <div class="col-12 col-md-8 order-2 order-lg-1 justify-content-center">
+                        <% if(post.title){ %>
+                          <h1 class='heading-1'><%= post.title %></h1>
+                        <%}%>
+                        
+                        <% if(post.author){ %>
+                          <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
+                        <%}%>           
+      
+                        <% if(post.content){ %>
+                          <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+                        <%}%>
+      
+                        <div class="d-flex flex-row justify-content-end">
+                          <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
+                        </div>
+                      </div>
+  
+                      <div class="col-12 col-md-4 order-1 order-lg-2 justify-content-center">
+                        <% if(post.image) { %>
+                          <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top lazyload" alt="images">
+                          <% } else{ %>
+                            <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top lazyload" alt="images">
+                          <% } %>
+                      </div>
                     </div>
                     <hr class='rules mt-2 mt-md-5'>
                   </div>
-                <% }) %>
+                  <% }) %>
               <% } %>
 
               <% if(page){%>
@@ -183,7 +190,7 @@
                   <% if(page > 1) { %>
                     <a href="/activity?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
                   <%}%>
-                  <% if(posts.length == 10) {%>
+                  <% if(posts.length == 7) {%>
                     <a href="/activity?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
                   <%}%>
                 </div>
@@ -217,11 +224,11 @@
         <p class='param-footer'>Designed and built with all the love in the world by Farand from the Wayang Windu KKN team and with the help of our contributors.</p>
         <p class='param-footer1'>All right reserved. Beautiful Pangalengan.</p>
         <div class="my-2">
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/ugm_rvgujo.png" alt="ugm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617819/images/kkn-ppm_jsxtu7.png" alt="kkn-ppm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617815/images/ww_czmtk7.png" alt="ww" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/se_dn4xws.png" alt="se" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617864/images/geothermal_aqdzuw.png" alt="geothermal" class='sponsor-img'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/ugm_se5u8n.png" alt="ugm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/kkn_a7jdxy.png" alt="kkn-ppm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/ww_r46z2g.png" alt="ww" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/se_p75fdr.png" alt="se" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/geo_j0ekdx.png" alt="geothermal" class='sponsor-img lazyload'>
         </div>
 
       </div>
@@ -232,5 +239,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- lazyloading for img -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
   </body>
 </html>

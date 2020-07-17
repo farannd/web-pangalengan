@@ -127,15 +127,15 @@
                       <div class="carousel-inner">
                         <% for(let x=0;x<post.image.length;x++){ %>
                           <div class="carousel-item <%= x== 0 ? 'active' : null %>">
-                            <img class='img' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
+                            <img class='img lazyload' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
                           </div>
                         <% } %>
                       </div>
                     </div> 
                   <% } else if (post.image.length == 1){ %>
-                    <img class='img' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
+                    <img class='img lazyload' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
                   <% } else { %>
-                    <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img" alt="images">
+                    <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img lazyload" alt="images">
                   <% } %>
 
                   <div class="card-body">
@@ -156,7 +156,7 @@
                 <% if(page > 1) { %>
                   <a href="/tourist-attraction/attraction?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
                 <%}%>
-                <% if(posts.length == 9) {%>
+                <% if(posts.length == 6) {%>
                   <a href="/tourist-attraction/attraction?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
                 <%}%>
               </div>
@@ -184,11 +184,11 @@
         <p class='param-footer'>Designed and built with all the love in the world by Farand from the Wayang Windu KKN team and with the help of our contributors.</p>
         <p class='param-footer1'>All right reserved. Beautiful Pangalengan.</p>
         <div class="my-2">
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/ugm_rvgujo.png" alt="ugm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617819/images/kkn-ppm_jsxtu7.png" alt="kkn-ppm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617815/images/ww_czmtk7.png" alt="ww" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/se_dn4xws.png" alt="se" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617864/images/geothermal_aqdzuw.png" alt="geothermal" class='sponsor-img'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/ugm_se5u8n.png" alt="ugm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/kkn_a7jdxy.png" alt="kkn-ppm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/ww_r46z2g.png" alt="ww" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/se_p75fdr.png" alt="se" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/geo_j0ekdx.png" alt="geothermal" class='sponsor-img lazyload'>
         </div>
 
       </div>
@@ -204,5 +204,7 @@
         interval: 3000
       })
     </script>
+    <!-- lazyloading for img -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
   </body>
 </html>

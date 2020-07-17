@@ -8,7 +8,7 @@ const Tourist = require('../models/tourist');
 router.get('/tourist-attraction', (req, res) => {
 	let page = 1;
 	let skip = 0;
-	let limit = 9;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;
@@ -47,7 +47,7 @@ router.get('/tourist-attraction', (req, res) => {
 router.get('/tourist-attraction/attraction', (req, res) => {
 	let page = 1;
 	let skip = 0;
-	let limit = 9;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;
@@ -86,7 +86,7 @@ router.get('/tourist-attraction/attraction', (req, res) => {
 router.get('/tourist-attraction/lodging', (req, res) => {
 	let page = 1;
 	let skip = 0;
-	let limit = 9;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;
@@ -125,7 +125,7 @@ router.get('/tourist-attraction/lodging', (req, res) => {
 router.get('/tourist-attraction/restaurant', (req, res) => {
 	let page = 1;
 	let skip = 0;
-	let limit = 9;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;

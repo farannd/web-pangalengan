@@ -7,7 +7,7 @@ const Galleries = require('../models/gallery');
 router.get('/gallery', (req, res) => {
 	let page = 1;
 	let skip = 0;
-	let limit = 9;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;

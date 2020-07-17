@@ -62,8 +62,7 @@ body {
 /* section 1 */
 .section-1 .activity {
 	margin: 0 auto;
-	padding: 0 1%;
-	width: 70%;
+	width: 80%;
 }
 
 .section-1 .author {
@@ -130,17 +129,25 @@ body {
 }
 
 .section-1 .randomactivity {
-	width: 75%;
+	width: 70%;
 	margin: 0 auto;
 }
 
 .section-1 .randomactivity .card {
-	width: 100%;
+	width: 80%;
 	margin: 0 auto;
 }
 
 .section-1 .randomactivity .card-title {
 	text-transform: capitalize;
+}
+
+.section-1 .randomactivity img {
+	width: 100%;
+	height: 225px;
+	display: block;
+	margin: 0 auto;
+	object-fit: cover;
 }
 
 @media screen and (max-width: 500px) {

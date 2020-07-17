@@ -114,7 +114,7 @@
             <div class="col-12 col-md-3">
               <div class="d-flex align-self-center justify-content-around">
                   <div class="card" style="width: 18rem;">
-                    <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="images">
+                    <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top lazyload" alt="images">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -125,7 +125,7 @@
             <div class="col-12 col-md-3">
               <div class="d-flex align-self-center justify-content-around">
                 <div class="card" style="width: 18rem;">
-                  <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="images">
+                  <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top lazyload" alt="images">
                   <div class="card-body">
                       <h5 class="card-title">Card title</h5>
                       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -136,7 +136,7 @@
             <div class="col-12 col-md-3">
               <div class="d-flex align-self-center justify-content-around">
                 <div class="card" style="width: 18rem;">
-                  <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="images">
+                  <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top lazyload" alt="images">
                   <div class="card-body">
                       <h5 class="card-title">Card title</h5>
                       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -147,7 +147,7 @@
             <div class="col-12 col-md-3">
               <div class="d-flex align-self-center justify-content-around">
                   <div class="card" style="width: 18rem;">
-                    <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top" alt="images">
+                    <img src="https://www.knetizen.com/wp-content/uploads/2019/10/IZONE-Jo-Yuri.jpg" class="card-img-top lazyload" alt="images">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -174,15 +174,15 @@
                   <div class="carousel-inner">
                     <% for(let x=0;x<image.length;x++){ %>
                       <div class="carousel-item <%= x== 0 ? 'active' : null %>">
-                        <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3' src="data:image/<%= image[x].contentType%>;base64,<%= image[x].data.toString('base64')%>">
+                        <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[x].contentType%>;base64,<%= image[x].data.toString('base64')%>">
                       </div>
                     <% } %>
                   </div>
                 </div> 
               <% } else if (image.length == 1){ %>
-                <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3' src="data:image/<%= image[0].contentType%>;base64,<%= image[0].data.toString('base64')%>">
+                <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[0].contentType%>;base64,<%= image[0].data.toString('base64')%>">
               <% } else { %>
-                <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" data-aos="fade-left" data-aos-duration="1000" class='img mt-3' alt="images">
+                <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' alt="images">
               <% } %>
             </div>
           </div>
@@ -193,7 +193,7 @@
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-12 col-md-6">
-              <img data-aos="fade-right" data-aos-duration="1000" class='img' src='https://res.cloudinary.com/djiahwrki/image/upload/v1594617814/images/nature_uyjmok.svg'>
+              <img data-aos="fade-right" data-aos-duration="1000" class='img lazyload' src='https://res.cloudinary.com/djiahwrki/image/upload/v1594617814/images/nature_uyjmok.svg'>
             </div>
             <div class="col-12 col-md-6">
               <h1 class='heading-3'>Why you should visit pangalengan?</h1>
@@ -217,9 +217,9 @@
                       <div class="row justify-content-center align-items-center">
                         <div class="col-12 col-lg-4 justify-content-center">
                           <% if(posts[x].image) { %>
-                            <img src="data:image/<%= posts[x].image.contentType%>;base64,<%= posts[x].image.data.toString('base64')%>" class="img mt-3" alt="images">
+                            <img src="data:image/<%= posts[x].image.contentType%>;base64,<%= posts[x].image.data.toString('base64')%>" class="img mt-3 lazyload" alt="images">
                           <% } else{ %>
-                            <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img mt-3" alt="images">
+                            <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img mt-3 lazyload" alt="images">
                           <% } %>
                         </div>
                         <div class="col-12 col-lg-8 justify-content-center pl-lg-3">
@@ -262,11 +262,11 @@
         <p class='param-footer'>Designed and built with all the love in the world by Farand from the Wayang Windu KKN team and with the help of our contributors.</p>
         <p class='param-footer1'>All right reserved. Beautiful Pangalengan.</p>
         <div class="my-2">
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/ugm_rvgujo.png" alt="ugm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617819/images/kkn-ppm_jsxtu7.png" alt="kkn-ppm" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617815/images/ww_czmtk7.png" alt="ww" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/se_dn4xws.png" alt="se" class='sponsor-img'>
-          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617864/images/geothermal_aqdzuw.png" alt="geothermal" class='sponsor-img'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/ugm_se5u8n.png" alt="ugm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/kkn_a7jdxy.png" alt="kkn-ppm" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/ww_r46z2g.png" alt="ww" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958868/images/se_p75fdr.png" alt="se" class='sponsor-img lazyload'>
+          <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594958869/images/geo_j0ekdx.png" alt="geothermal" class='sponsor-img lazyload'>
         </div>
 
       </div>
@@ -286,5 +286,8 @@
         interval: 3000
       })
     </script>
+
+    <!-- lazyloading for img -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
   </body>
 </html>
