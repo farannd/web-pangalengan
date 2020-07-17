@@ -168,19 +168,22 @@
               <a href='/gallery' class="btn btn-primary">Gallery</a>
             </div>
             <div class="col-12 col-md-6 order-1 order-md-2">
-
-              <% if(image.length>1) { %>
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <% for(let x=0;x<image.length;x++){ %>
-                      <div class="carousel-item <%= x== 0 ? 'active' : null %>">
-                        <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[x].contentType%>;base64,<%= image[x].data.toString('base64')%>">
-                      </div>
-                    <% } %>
-                  </div>
-                </div> 
-              <% } else if (image.length == 1){ %>
-                <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[0].contentType%>;base64,<%= image[0].data.toString('base64')%>">
+              <% if(image) {%>
+                <% if(image.length>1) { %>
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <% for(let x=0;x<image.length;x++){ %>
+                        <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                          <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[x].contentType%>;base64,<%= image[x].data.toString('base64')%>">
+                        </div>
+                      <% } %>
+                    </div>
+                  </div> 
+                <% } else if (image.length == 1){ %>
+                  <img data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' src="data:image/<%= image[0].contentType%>;base64,<%= image[0].data.toString('base64')%>">
+                <% } else { %>
+                  <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' alt="images">
+                <% } %>
               <% } else { %>
                 <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" data-aos="fade-left" data-aos-duration="1000" class='img mt-3 lazyload' alt="images">
               <% } %>
