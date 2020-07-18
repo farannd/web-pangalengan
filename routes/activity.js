@@ -9,7 +9,7 @@ const Activities = require('../models/activity');
 //Routes
 //index
 router.get('/activity', (req, res) => {
-	Activities.find().sort({ _id: -1 }).limit(20).exec((err, postsRandom) => {
+	Activities.find().sort({ _id: -1 }).limit(10).exec((err, postsRandom) => {
 		if (err) {
 			req.flash('warning', 'Something went wrong, please try again later');
 			res.render('activity/index', {
@@ -28,7 +28,7 @@ router.get('/activity', (req, res) => {
 			//paginate
 			let page = 1;
 			let skip = 0;
-			let limit = 7;
+			let limit = 4;
 			if (req.query.page) {
 				page = parseInt(req.query.page, 10);
 				skip = (page - 1) * limit;
