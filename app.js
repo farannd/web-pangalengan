@@ -164,6 +164,11 @@ app.get('/', (req, res) => {
 	});
 });
 
+//documentation
+app.get('/documentation', (req, res) => {
+	res.render('documentation');
+});
+
 //404
 app.get('*', (req, res) => {
 	res.render('404');

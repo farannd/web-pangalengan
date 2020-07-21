@@ -196,7 +196,7 @@
                   <% if(page > 1) { %>
                     <a href="/profile/<%= user._id %>/tourist-attraction?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
                   <%}%>
-                  <% if(posts.length == 10) {%>
+                  <% if(posts.length == 6) {%>
                     <a href="/profile/<%= user._id %>/tourist-attraction?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
                   <%}%>
                 </div>

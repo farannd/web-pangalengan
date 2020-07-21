@@ -49,7 +49,7 @@ router.post('/register', middleware.isLoggedOut, (req, res) => {
 				} else {
 					passport.authenticate('local')(req, res, () => {
 						req.flash('success', 'Your account have successfuly created. Welcome to Pangalengan!');
-						return res.redirect('/activity');
+						return res.redirect('/profile/' + result._id);
 					});
 				}
 			});
@@ -95,7 +95,7 @@ router.get('/profile/:id', middleware.isLoggedIn, (req, res) => {
 	//paginate
 	let page = 1;
 	let skip = 0;
-	let limit = 10;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;
@@ -128,7 +128,7 @@ router.get('/profile/:id/tourist-attraction', middleware.isLoggedIn, (req, res) 
 	//paginate
 	let page = 1;
 	let skip = 0;
-	let limit = 10;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;
@@ -161,7 +161,7 @@ router.get('/profile/:id/gallery', middleware.isLoggedIn, (req, res) => {
 	//paginate
 	let page = 1;
 	let skip = 0;
-	let limit = 10;
+	let limit = 6;
 	if (req.query.page) {
 		page = parseInt(req.query.page, 10);
 		skip = (page - 1) * limit;

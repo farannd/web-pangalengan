@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel='stylesheet' href="/styles/user/profile.css" >
+    <link rel='stylesheet' href="/styles/documentation.css" >
 
     <title>Beautiful Pangalengan</title>
   </head>
@@ -67,11 +67,11 @@
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="site-title">
-              <%= user.username %>'s Profile
+              Documentation
             </h1>
           </div>
         </div>
-      </div>
+      </div >
 
       <% if(success && success.length>0 ){ %>
         <div class="container my-3">
@@ -95,113 +95,37 @@
         </div>
       <% } %>
 
-      <% if(currentUser && currentUser.isAdmin){ %> 
-        <div class="container my-3">
-          <div class="alert alert-success " role="alert">
-              Kamu adalah admin. Kamu dapat melakukan hal sebagai berikut :
-              <ul>
-                <li>Mengubah content dari halaman about us</li>
-                <li>Memposting sebuah post di halaman activity</li>
-                <li>Melakukan edit ataupun delete pada semua post di halaman activity</li>
-                <li>Memposting sebuah post di halaman tourist attraction</li>
-                <li>Melakukan edit ataupun delete pada semua post di halaman tourist attraction</li>
-                <li>Memposting sebuah post di halaman gallery</li>
-                <li>Melakukan edit ataupun delete pada semua post di halaman gallery</li>
-              </ul>
-          </div>
-        </div>
-      <%} %>
-
-      <!-- input ure content -->
-      <div class="section-1 container-fluid">
-        <div class="row justify-content-center align-items-start">
-          <div class="col-12 col-lg-3 justify-content-center">
-            <div class="profile my-3 my-lg-5">
-              <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594701415/images/profile_onkytq.svg" alt="profile" class='img'>
-              <div class="profile-content pt-3 pt-lg-5 text-center text-md-left">
-                <h6 class='m-0'><strong>Email</strong></h6>
-                <p><%= user.email %></p>
-                <h6 class='m-0'><strong>Username</strong></h6>
-                <p><%= user.username %></p>
-                <a href="/logout">Log Out</a>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-12 col-lg-9 justify-content-center">
-
-            <div class="navigasi container my-3 my-lg-5">
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link px-2 px-lg-5 active" href="/profile/<%=currentUser.id%>">Activity</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-2 px-lg-5" href="/profile/<%=currentUser.id%>/tourist-attraction">Attraction</a>
-                </li>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-2 px-lg-5" href="/profile/<%=currentUser.id%>/gallery">Gallery</a>
-                </li>
-              </ul>
-            </div>
-
-            <% if(posts){ %>
-              <% posts.forEach((post) => { %>
-                <div class="activity mb-2 mb-md-5">
-                  <div class="row justify-content-center align-items-center">
-                    <div class="col-12 col-md-8 order-2 order-lg-1 justify-content-center">
-                      <% if(post.title){ %>
-                        <h1 class='heading-1'><%= post.title %></h1>
-                      <%}%>
-                      
-                      <% if(post.author){ %>
-                        <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
-                      <%}%>           
-    
-                      <% if(post.content){ %>
-                        <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
-                      <%}%>
-    
-                      <div class="d-flex flex-row justify-content-end">
-                        <a href='/activity/<%= post._id %>' class='btn btn-primary'>Read More</a>
-                      </div>
-
-                    </div>
-                    <div class="col-12 col-md-4 order-1 order-lg-2 justify-content-center">
-                      <% if(post.image) { %>
-                        <img src="data:image/<%= post.image.contentType%>;base64,<%= post.image.data.toString('base64')%>" class="card-img-top" alt="images">
-                      <% } else{ %>
-                        <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="card-img-top" alt="images">
-                      <% } %>
-                    </div>
-                  </div>
-                  <hr class='rules mt-3 mt-md-5'>
-                </div>
-              <% }) %>
-
-              <% if(page){%>
-                <div class="paginate d-flex flex-row justify-content-center my-3 my-lg-5">
-                  <% if(page > 1) { %>
-                    <a href="/profile/<%= user._id %>?page=<%= parseInt(page,10) - 1 %>" class='btn btn-info rounded-0'>Back</a>
-                  <%}%>
-                  <% if(posts.length == 6) {%>
-                    <a href="/profile/<%= user._id %>?page=<%= parseInt(page,10) + 1 %>" class='btn btn-primary rounded-0'>Next</a>
-                  <%}%>
-                </div>
-              <%}%>
-
-            <% } else { %>
-              <div class="notfound my-3 my-lg-5">
-                <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/frown_euqxwu.png" alt="frown" class='img'>
-                <h1 class='text-center'>There are still no posts yet</h1>
-              </div>
-            <%} %>
-
-          </div>
+      <div class="section-1 my-3 my-md-5">
+        <div class="container">
+          <p> Pada halaman ini akan dipaparkan panduan dari bagaimana kerja dari website pangalengan ini. Di website pangalengan ini memiliki 5 halaman utama + halaman autentikasi. Berikut adalah fungsi dari halaman halaman tersebut :</p>
+          <ul>
+            <li>
+              <h3>Halaman Autentikasi</h3>
+              <p>Halaman ini berfungsi untuk melakukan pembuatan akun pengguna, melakukan log in atau masuk, melakukan logout atau keluar, dan juga untuk mengecek profile. Untuk melakukan registrasi pada web pangalengan memerlukan secret code untuk dapat melakukan proses pembuatan akun pengguna. Secret code tersebut adalah 'pangalengan' tanpa tanda petik. Setelah pengguna mengisi semua borang yang ada pada halaman registrasi dengan tepat maka dapat langsung melakukan registrasi untuk pembuatan akun. Dalam melakukan log in maka pengguna harus memasukan username dan password yang sudah didaftarkan saat melakukan proses pembuatan akun. Jika pengguna melupakan password nya maka dapat menggunakan fitur forget password yang nantinya pengguna mengisikan email yang sudah didaftarkan saat registrasi untuk nantinya akan dikirim kan sebuah email untuk melakukan proses reset password. Pengguna dapat mengecek semua posting an yang sudah di post pada halaman profile. Untuk melakukan logout atau keluar pengguna dapat menekan tombol logout.</p>
+            </li>
+            <li>
+              <h3>Halaman Home</h3>
+              <p>Halaman ini merupakan halaman muka dari website pangelangan ini yang didalam nya berisikan rangkuman dari keseluruhan halaman yang ada pada web pangalengan</p>
+            </li>
+            <li>
+              <h3>Halaman About Us</h3>
+              <p>Pada halaman ini pengguna dapat melihat biodata dari kecamatan pangalengan. Jika pengguna merupakan admin maka pengguna dapat membuat, mengedit, ataupun mengedit post pada halaman about us ini.</p>
+            </li>
+            <li>
+              <h3>Halaman Activity</h3>
+              <p>Pada halaman ini pengguna dapat melihat aktivitas yang terjadi pada kecamatan pangalengan. Jika pengguna merupakan admin maka pengguna dapat membuat, mengedit, ataupun mengedit post pada halaman activity ini.</p>
+            </li>
+            <li>
+              <h3>Halaman Tourist Attraction</h3>
+              <p>Pada halaman ini pengguna dapat melihat kemacam ragaman dari objek wisata yang ada di pangalengan dari objek wisata terus ke penginapan sampai restaurant. Pengguna yang memiliki bisnis di pariwisata pangalengan maka dapat membuat sebuah post untuk melakukan publikasi dari bisnis nya tersebut. Pengguna yang melakukan posting dapat mengedit dan menghapus dari postingan tersebut. Sedangkan jika pengguna merupakan admin maka pengguna dapat membuat, mengedit, dan menghapus semua post yang ada pada halaman activity.</p>
+            </li>
+            <li>
+              <h3>Halaman Gallery</h3>
+              <p>Pada halaman ini pengguna dapat melihat keindahan alam di kecamatan pangalengan. Pengguna yang ingin berkontribusi untuk memasarkan keindahan dari kecamatan pangalengan dapat melakukan post foto di halaman gallery. Pengguna yang melakukan posting dapat mengedit dan menghapus dari postingan tersebut. Sedangkan jika pengguna merupakan admin maka pengguna dapat membuat, mengedit, dan menghapus semua post yang ada pada halaman activity.</p>
+            </li>
+          </ul>
         </div>
       </div>
-      
     </main>
 
     <footer>
@@ -225,12 +149,13 @@
 
       </div>
     </footer>
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
     <!-- lazyloading for img -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
   </body>
