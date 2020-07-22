@@ -64,10 +64,7 @@ body {
 }
 
 .section-1 .para-1 {
-	width: 70%;
-	padding: 2%;
-	text-align: justify;
-	margin: 2% auto;
+	text-align: left;
 	padding: 0;
 }
 
