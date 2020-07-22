@@ -160,7 +160,7 @@
                       <%}%>           
     
                       <% if(post.content){ %>
-                        <p class='para-1'><%= post.content.slice(0,250) %> ...</p>
+                        <p class='para-1'><%- post.content.slice(0,250) %> ...</p>
                       <%}%>
     
                       <div class="d-flex flex-row justify-content-end">
