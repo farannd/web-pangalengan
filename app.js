@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const expressSanitizer = require('express-sanitizer');
 
 //general confid
 const app = express();
@@ -54,7 +55,7 @@ app.use(
 		}),
 		cookie: {
 			httpOnly: true,
-			secure: true,
+			// secure: true,
 			maxAge: 24 * 60 * 60 * 1000,
 			sameSite: 'none'
 		}
@@ -65,6 +66,8 @@ app.use(
 app.use(helmet());
 app.use(compression());
 app.use(express.static(__dirname + '/public'));
+app.use(express.json());
+app.use(expressSanitizer());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());

@@ -98,7 +98,7 @@ router.post('/activity', [ middleware.upload.single('image'), middleware.isAdmin
 		res.redirect('/activity/new');
 	} else {
 		let obj = {
-			content: req.body.content,
+			content: req.sanitize(req.body.content),
 			title: req.body.title.toLowerCase(),
 			video: req.body.video ? req.body.video : null,
 			file: req.body.file ? req.body.file : null,
@@ -171,7 +171,7 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 				res.redirect('/activity/' + id + '/edit');
 			} else {
 				obj = {
-					content: req.body.content,
+					content: req.sanitize(req.body.content),
 					title: req.body.title.toLowerCase(),
 					video: req.body.video ? req.body.video : null,
 					file: req.body.file ? req.body.file : null,
@@ -192,7 +192,7 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 			}
 		} else {
 			obj = {
-				content: req.body.content,
+				content: req.sanitize(req.body.content),
 				title: req.body.title.toLowerCase(),
 				video: req.body.video ? req.body.video : null,
 				file: req.body.file ? req.body.file : null
