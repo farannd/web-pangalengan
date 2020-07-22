@@ -88,6 +88,14 @@ router.post('/activity', [ middleware.upload.single('image'), middleware.isAdmin
 	} else if (!req.body.content) {
 		req.flash('warning', 'Please input a content');
 		res.redirect('/activity/new');
+	} else if (req.file.size > 500000) {
+		req.flash(
+			'warning',
+			'Ukuran file anda adalah ' +
+				req.file.size / 1000000 +
+				' mb. Harap melakukan compress terlebih dahulu terhadap file'
+		);
+		res.redirect('/activity/new');
 	} else {
 		let obj = {
 			content: req.body.content,
@@ -153,16 +161,35 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 		let id = req.params.id;
 		let obj = {};
 		if (req.file) {
-			obj = {
-				content: req.body.content,
-				title: req.body.title.toLowerCase(),
-				video: req.body.video ? req.body.video : null,
-				file: req.body.file ? req.body.file : null,
-				image: {
-					data: req.file.buffer,
-					contentType: req.file.mimetype
-				}
-			};
+			if (req.file.size > 500000) {
+				req.flash(
+					'warning',
+					'Ukuran file anda adalah ' +
+						req.file.size / 1000000 +
+						' mb. Harap melakukan compress terlebih dahulu terhadap file'
+				);
+				res.redirect('/activity/' + id + '/edit');
+			} else {
+				obj = {
+					content: req.body.content,
+					title: req.body.title.toLowerCase(),
+					video: req.body.video ? req.body.video : null,
+					file: req.body.file ? req.body.file : null,
+					image: {
+						data: req.file.buffer,
+						contentType: req.file.mimetype
+					}
+				};
+				Activities.findByIdAndUpdate(id, obj, (err, post) => {
+					if (err) {
+						req.flash('warning', 'Something went wrong, please try again later');
+						res.redirect('/activity');
+					} else {
+						req.flash('success', 'You have successfully updated the post');
+						res.redirect('/activity/' + id);
+					}
+				});
+			}
 		} else {
 			obj = {
 				content: req.body.content,
@@ -170,16 +197,16 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 				video: req.body.video ? req.body.video : null,
 				file: req.body.file ? req.body.file : null
 			};
+			Activities.findByIdAndUpdate(id, obj, (err, post) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('/activity');
+				} else {
+					req.flash('success', 'You have successfully updated the post');
+					res.redirect('/activity/' + id);
+				}
+			});
 		}
-		Activities.findByIdAndUpdate(id, obj, (err, post) => {
-			if (err) {
-				req.flash('warning', 'Something went wrong, please try again later');
-				res.redirect('/activity');
-			} else {
-				req.flash('success', 'You have successfully updated the post');
-				res.redirect('/activity/' + id);
-			}
-		});
 	}
 });
 

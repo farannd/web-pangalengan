@@ -7,7 +7,7 @@ const Galleries = require('../models/gallery');
 const middleware = {
 	//multer config
 	upload: multer({
-		limits: { fileSize: 10000000 },
+		limits: { fileSize: 1000000 },
 		fileFilter(req, file, cb) {
 			if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
 				//allowed file extensions

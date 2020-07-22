@@ -121,19 +121,20 @@
             <% posts.forEach(post=>{ %>
               <div class="col-12 col-md-6 col-lg-4 justify-content-center align-self-start mb-3">
                 <div class="card" style="width: 18rem;">
-
-                  <% if(post.image.length>1) { %>
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                      <div class="carousel-inner">
-                        <% for(let x=0;x<post.image.length;x++){ %>
-                          <div class="carousel-item <%= x== 0 ? 'active' : null %>">
-                            <img class='img lazyload' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
-                          </div>
-                        <% } %>
-                      </div>
-                    </div> 
-                  <% } else if (post.image.length == 1){ %>
-                    <img class='img lazyload' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
+                  <% if(post.image) { %>
+                    <% if(post.image.length>1) { %>
+                      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <% for(let x=0;x<post.image.length;x++){ %>
+                            <div class="carousel-item <%= x== 0 ? 'active' : null %>">
+                              <img class='img lazyload' src="data:image/<%= post.image[x].contentType%>;base64,<%= post.image[x].data.toString('base64')%>">
+                            </div>
+                          <% } %>
+                        </div>
+                      </div> 
+                    <% } else if (post.image.length == 1){ %>
+                      <img class='img lazyload' src="data:image/<%= post.image[0].contentType%>;base64,<%= post.image[0].data.toString('base64')%>">
+                    <% } %>
                   <% } else { %>
                     <img src="https://res.cloudinary.com/djiahwrki/image/upload/v1594617816/images/emptypic_ri9jxa.png" class="img lazyload" alt="images">
                   <% } %>
@@ -142,7 +143,7 @@
                       <a href='/tourist-attraction/<%=post._id%>'> <h5 class="card-title m-0"> <%= post.title %></h5> </a>
                       <% if(post.author){ %>
                         <p class='author'><em>Posted by <span class='username'><%= post.author.username %></span></em></p>
-                      <%}%>
+                      <% } %>
                       <p class="card-text"><%= post.content.slice(0,150) %> ...</p>
                       <p class='category'><%= post.category %></p>
                   </div>

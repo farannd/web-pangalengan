@@ -70,7 +70,7 @@
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="site-title">
-              New Post About
+              New Post Activity
             </h1>
           </div>
         </div>
@@ -108,12 +108,13 @@
             </div>
 
             <p class='font-weight-bold'>Upload image</p>
-            <div class="input-group mb-3">
+            <div class="input-group">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="image" required>
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <label class="custom-file-label" for="customFile" id='customLabel'>Choose file</label>
               </div>
             </div>
+            <small class="form-text text-muted d-block mb-3">Ukuran file maksimal sebesar 0.5 mb. Untuk melakukan compress ukuran file dapat dilakukan <a href='https://compressimage.toolur.com/' target="_blank">disini</a></small>
 
             <div class="form-group">
               <label for="video" class='font-weight-bold'>Input an embed video url</label>
@@ -165,10 +166,30 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
-      $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-      });
+      let input = document.getElementById( 'customFile' );
+      let infoArea = document.getElementById( 'customLabel' );
+
+      input.addEventListener( 'change', showFileName );
+
+      function showFileName( event ) {
+        
+        // the change event gives us the input it occurred in 
+        let input = event.srcElement;
+        
+        
+        //alert when file more than 4
+        if(input.files.length>1){
+          alert('You can only upload a maximum of 1 image')
+        }
+        
+        // use fileName however fits your app best, i.e. add it into a div
+        infoArea.textContent = input.files[0].name
+
+        //alert when filesize is more than 0.5 mb
+        if(input.files[0].size>500000){
+          alert('Ukuran file anda adalah ' + input.files[0].size / 1000000 + ' mb. Harap melakukan compress terlebih dahulu terhadap file')
+        }
+      }
     </script>
     <!-- lazyloading for img -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>

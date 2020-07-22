@@ -34,38 +34,52 @@ router.get('/gallery/new', middleware.isLoggedIn, (req, res) => {
 router.post('/gallery', [ middleware.upload.array('image', 12), middleware.isLoggedIn ], (req, res) => {
 	if (req.files.length > 2) {
 		req.flash('warning', 'Max input for images is 2');
-		res.redirect('back');
+		res.redirect('/gallery/new');
 	} else if (!req.body.content) {
 		req.flash('warning', 'Please input a content');
-		res.redirect('back');
+		res.redirect('/gallery/new');
 	} else if (!req.files) {
 		req.flash('warning', 'Please input images');
-		res.redirect('back');
+		res.redirect('/gallery/new');
 	} else {
-		let images = [];
+		let fileSize = 0;
 		for (let x = 0; x < req.files.length; x++) {
-			images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
+			fileSize = fileSize + req.files[x].size;
 		}
-
-		let obj = {
-			content: req.body.content,
-			like: 0,
-			image: [ ...images ],
-			author: {
-				id: req.user.id,
-				username: req.user.username
+		if (fileSize > 500000) {
+			req.flash(
+				'warning',
+				'Ukuran file anda adalah ' +
+					fileSize / 1000000 +
+					' mb. Harap melakukan compress terlebih dahulu terhadap file'
+			);
+			res.redirect('/gallery/new');
+		} else {
+			let images = [];
+			for (let x = 0; x < req.files.length; x++) {
+				images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
 			}
-		};
 
-		Galleries.create(obj, (err, doc) => {
-			if (err || !doc) {
-				req.flash('warning', 'Something went wrong, please try again later');
-				res.redirect('/gallery');
-			} else {
-				req.flash('success', 'You have successfully uploaded the post');
-				res.redirect('/gallery');
-			}
-		});
+			let obj = {
+				content: req.body.content,
+				like: 0,
+				image: [ ...images ],
+				author: {
+					id: req.user.id,
+					username: req.user.username
+				}
+			};
+
+			Galleries.create(obj, (err, doc) => {
+				if (err || !doc) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('/gallery');
+				} else {
+					req.flash('success', 'You have successfully uploaded the post');
+					res.redirect('/gallery');
+				}
+			});
+		}
 	}
 });
 
@@ -94,7 +108,7 @@ router.post('/gallery/:id/like', (req, res) => {
 				if (err) {
 					console.log(err);
 				} else {
-					res.redirect('back');
+					res.redirect('/gallery/' + id);
 				}
 			});
 		}
@@ -116,11 +130,11 @@ router.get('/gallery/:id/edit', middleware.checkPostGalleryOwnership, (req, res)
 
 //update post
 router.put('/gallery/:id', middleware.checkPostGalleryOwnership, (req, res) => {
+	let id = req.params.id;
 	if (!req.body.content) {
 		req.flash('warning', 'Please input a content');
-		res.redirect('back');
+		res.redirect('/gallery/' + id + '/edit');
 	} else {
-		let id = req.params.id;
 		let obj = {
 			content: req.body.content
 		};

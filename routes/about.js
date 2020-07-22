@@ -68,28 +68,48 @@ router.get('/about-us/edit', middleware.isAdminLoggedIn, (req, res) => {
 router.put('/about-us/:id', [ middleware.upload.single('image'), middleware.isAdminLoggedIn ], (req, res) => {
 	let id = req.params.id;
 	let obj = {};
+
 	if (req.file) {
-		obj = {
-			content: req.body.content,
-			image: {
-				data: req.file.buffer,
-				contentType: req.file.mimetype
-			}
-		};
+		if (req.file.size > 500000) {
+			req.flash(
+				'warning',
+				'Ukuran file anda adalah ' +
+					req.file.size / 1000000 +
+					' mb. Harap melakukan compress terlebih dahulu terhadap file'
+			);
+			res.redirect('/about-us/edit');
+		} else {
+			obj = {
+				content: req.body.content,
+				image: {
+					data: req.file.buffer,
+					contentType: req.file.mimetype
+				}
+			};
+			Abouts.findByIdAndUpdate(id, obj, (err, update) => {
+				if (err) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					return res.redirect('/about-us');
+				} else {
+					req.flash('success', 'You successfully update the post');
+					return res.redirect('/about-us');
+				}
+			});
+		}
 	} else {
 		obj = {
 			content: req.body.content
 		};
+		Abouts.findByIdAndUpdate(id, obj, (err, update) => {
+			if (err) {
+				req.flash('warning', 'Something went wrong, please try again later');
+				return res.redirect('/about-us');
+			} else {
+				req.flash('success', 'You successfully update the post');
+				return res.redirect('/about-us');
+			}
+		});
 	}
-	Abouts.findByIdAndUpdate(id, obj, (err, update) => {
-		if (err) {
-			req.flash('warning', 'Something went wrong, please try again later');
-			return res.redirect('/about-us');
-		} else {
-			req.flash('success', 'You successfully update the post');
-			return res.redirect('/about-us');
-		}
-	});
 });
 
 module.exports = router;

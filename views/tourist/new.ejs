@@ -70,7 +70,7 @@
         <div class="d-flex justify-content-center">
           <div class="d-flex flex-column align-items-center text-center">
             <h1 class="site-title">
-              New Post About
+              New Post Attraction
             </h1>
           </div>
         </div>
@@ -109,12 +109,13 @@
 
             <p class='font-weight-bold'>Select image</p>
             <small class="form-text text-muted">Max 2 images</small>
-            <div class="input-group mb-3">
+            <div class="input-group">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" accept="image/*" name="image" multiple>
                 <label class="custom-file-label" for="customFile" id='customLabel'>Choose file</label>
               </div>
             </div>
+            <small class="form-text text-muted d-block mb-3">Ukuran file maksimal sebesar 0.5 mb. Untuk melakukan compress ukuran file dapat dilakukan <a href='https://compressimage.toolur.com/' target="_blank">disini</a></small>
 
             <div class="category mb-3">
               <p class='font-weight-bold'> Select category</p>
@@ -196,20 +197,30 @@
         
         // the change event gives us the input it occurred in 
         let input = event.srcElement;
+          
+        //alert when file more than 2
+        if(input.files.length>2){
+          alert('You can only upload a maximum of 2 images')
+        }
         
         // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
         let fileName = [];
+        //variable untuk menyimpan jumlah total besar ukuran file
+        let fileSize = 0;
+
         for (let x=0;x<input.files.length;x++){
           fileName.push(input.files[x].name);
+          fileSize = fileSize + input.files[x].size
         }
         
         // use fileName however fits your app best, i.e. add it into a div
         infoArea.textContent = fileName.join(', ')
 
-        //alert when file more than 2
-        if(input.files.length>2){
-          alert('You can only upload a maximum of 2 images')
+        //alert when filesize is more than 0.5 mb
+        if(fileSize>500000){
+          alert('Ukuran file anda adalah ' + input.files[0].size / 1000000 + ' mb. Harap melakukan compress terlebih dahulu terhadap file')
         }
+        
       }
     </script>
     <!-- lazyloading for img -->

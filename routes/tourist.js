@@ -175,22 +175,53 @@ router.post('/tourist-attraction', [ middleware.upload.array('image', 12), middl
 	} else if (!req.body.content) {
 		req.flash('warning', 'Please input a content');
 		res.redirect('back');
-	} else {
-		let images = [];
-
-		if (req.files.length == 0) {
-			images = null;
+	} else if (req.files.length < 3 && req.files.length > 0) {
+		let fileSize = 0;
+		for (let x = 0; x < req.files.length; x++) {
+			fileSize = fileSize + req.files[x].size;
+		}
+		if (fileSize > 500000) {
+			req.flash(
+				'warning',
+				'Ukuran file anda adalah ' +
+					fileSize / 1000000 +
+					' mb. Harap melakukan compress terlebih dahulu terhadap file'
+			);
+			res.redirect('/tourist-attraction/new');
 		} else {
+			let images = [];
 			for (let x = 0; x < req.files.length; x++) {
 				images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
+				fileSize = fileSize + req.files[x].size;
 			}
+			let obj = {
+				content: req.body.content,
+				title: req.body.title.toLowerCase(),
+				category: req.body.category,
+				contact: req.body.contact,
+				image: [ ...images ],
+				author: {
+					id: req.user.id,
+					username: req.user.username
+				}
+			};
+			Tourist.create(obj, (err, doc) => {
+				if (err || !doc) {
+					req.flash('warning', 'Something went wrong, please try again later');
+					res.redirect('/tourist-attraction');
+				} else {
+					req.flash('success', 'You have successfully uploaded the post');
+					res.redirect('/tourist-attraction');
+				}
+			});
 		}
+	} else if (req.files.length == 0) {
 		let obj = {
 			content: req.body.content,
 			title: req.body.title.toLowerCase(),
 			category: req.body.category,
 			contact: req.body.contact,
-			image: images ? [ ...images ] : null,
+			image: null,
 			author: {
 				id: req.user.id,
 				username: req.user.username
@@ -251,26 +282,40 @@ router.put(
 			req.flash('warning', 'Please input a content');
 			res.redirect('back');
 		} else if (req.files.length < 3 && req.files.length > 0) {
-			let images = [];
+			let fileSize = 0;
 			for (let x = 0; x < req.files.length; x++) {
-				images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
+				fileSize = fileSize + req.files[x].size;
 			}
-			let obj = {
-				content: req.body.content,
-				title: req.body.title.toLowerCase(),
-				category: req.body.category,
-				contact: req.body.contact,
-				image: [ ...images ]
-			};
-			Tourist.findByIdAndUpdate(id, obj, (err, post) => {
-				if (err || !post) {
-					req.flash('warning', 'Something went wrong, please try again later');
-					res.redirect('/tourist-attraction');
-				} else {
-					req.flash('success', 'You have successfully updated the post');
-					return res.redirect('/tourist-attraction/' + id);
+			if (fileSize > 500000) {
+				req.flash(
+					'warning',
+					'Ukuran file anda adalah ' +
+						fileSize / 1000000 +
+						' mb. Harap melakukan compress terlebih dahulu terhadap file'
+				);
+				res.redirect('/tourist-attraction/' + id + '/edit');
+			} else {
+				let images = [];
+				for (let x = 0; x < req.files.length; x++) {
+					images.push({ data: req.files[x].buffer, contentType: req.files[x].mimetype });
 				}
-			});
+				let obj = {
+					content: req.body.content,
+					title: req.body.title.toLowerCase(),
+					category: req.body.category,
+					contact: req.body.contact,
+					image: [ ...images ]
+				};
+				Tourist.findByIdAndUpdate(id, obj, (err, post) => {
+					if (err || !post) {
+						req.flash('warning', 'Something went wrong, please try again later');
+						res.redirect('/tourist-attraction');
+					} else {
+						req.flash('success', 'You have successfully updated the post');
+						return res.redirect('/tourist-attraction/' + id);
+					}
+				});
+			}
 		} else if (req.files.length == 0) {
 			let obj = {
 				content: req.body.content,
