@@ -1,5 +1,6 @@
 //package requirements
 const express = require('express');
+const sanitizeHtml = require('sanitize-html');
 const router = express.Router();
 const middleware = require('../middleware/index');
 
@@ -60,6 +61,12 @@ router.get('/activity', (req, res) => {
 						page: null
 					});
 				} else {
+					for (let x = 0; x < posts.length; x++) {
+						posts[x].content = sanitizeHtml(posts[x].content, {
+							allowedTags: [],
+							allowedAttributes: {}
+						});
+					}
 					res.render('activity/index', {
 						posts: posts,
 						random1: postsRandom[num1],
@@ -98,7 +105,7 @@ router.post('/activity', [ middleware.upload.single('image'), middleware.isAdmin
 		res.redirect('/activity/new');
 	} else {
 		let obj = {
-			content: req.sanitize(req.body.content),
+			content: sanitizeHtml(req.body.content),
 			title: req.body.title.toLowerCase(),
 			video: req.body.video ? req.body.video : null,
 			file: req.body.file ? req.body.file : null,
@@ -171,7 +178,7 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 				res.redirect('/activity/' + id + '/edit');
 			} else {
 				obj = {
-					content: req.sanitize(req.body.content),
+					content: sanitizeHtml(req.body.content),
 					title: req.body.title.toLowerCase(),
 					video: req.body.video ? req.body.video : null,
 					file: req.body.file ? req.body.file : null,
@@ -192,7 +199,7 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 			}
 		} else {
 			obj = {
-				content: req.sanitize(req.body.content),
+				content: sanitizeHtml(req.body.content),
 				title: req.body.title.toLowerCase(),
 				video: req.body.video ? req.body.video : null,
 				file: req.body.file ? req.body.file : null

@@ -4,6 +4,7 @@ const passport = require('passport');
 const async = require('async');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const sanitizeHtml = require('sanitize-html');
 const middleware = require('../middleware/index');
 const router = express.Router();
 
@@ -116,6 +117,12 @@ router.get('/profile/:id', middleware.isLoggedIn, (req, res) => {
 					} else if (!posts.length) {
 						res.render('user/profile', { user: user, posts: null, page: null });
 					} else {
+						for (let x = 0; x < posts.length; x++) {
+							posts[x].content = sanitizeHtml(posts[x].content, {
+								allowedTags: [],
+								allowedAttributes: {}
+							});
+						}
 						res.render('user/profile', { user: user, posts: posts, page: page });
 					}
 				});
