@@ -227,7 +227,7 @@
                         </div>
                         <div class="col-12 col-lg-8 justify-content-center pl-lg-3">
                             <% if(posts[x].title){ %>
-                              <h1 class='heading-1'><%= posts[x].title %></h1>
+                              <h1 class='heading-4 text-center text-lg-left'><%= posts[x].title %></h1>
                             <%}%>
                             
                             <% if(posts[x].author){ %>
@@ -235,7 +235,7 @@
                             <%}%>           
           
                             <% if(posts[x].content){ %>
-                              <p class='para-4'><%= posts[x].content.slice(0,250) %> ...</p>
+                              <p class='para-4'><%- posts[x].content.slice(0,250) %> ...</p>
                             <%}%>
           
                             <div class="d-flex flex-row justify-content-end justify-content-lg-start">

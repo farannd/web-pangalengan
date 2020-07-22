@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const sanitizeHtml = require('sanitize-html');
 
 //general confid
 const app = express();
@@ -158,8 +159,13 @@ app.get('/', (req, res) => {
 				activities = null;
 				res.render('index', { image: image, posts: null });
 			} else {
-				activities = postsActivities;
-				res.render('index', { image: image, posts: activities });
+				for (let x = 0; x < postsActivities.length; x++) {
+					postsActivities[x].content = sanitizeHtml(postsActivities[x].content, {
+						allowedTags: [],
+						allowedAttributes: {}
+					});
+				}
+				res.render('index', { image: image, posts: postsActivities });
 			}
 		});
 	});

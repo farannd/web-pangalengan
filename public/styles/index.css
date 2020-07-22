@@ -202,6 +202,7 @@ hr.site-hr {
 .section-4 .heading-4 {
 	font-family: Ubuntu, sans-serif;
 	text-align: center;
+	text-transform: capitalize;
 }
 
 .section-4 a {
@@ -225,7 +226,6 @@ hr.site-hr {
 
 .section-4 .para-4 {
 	padding: 2% 0;
-	text-align: justify;
 	margin: 2% auto;
 }
 
