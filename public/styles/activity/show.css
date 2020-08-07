@@ -81,26 +81,26 @@ body {
 }
 
 .section-1 .vid {
-	width: 800px;
+	width: 850px;
 	height: 450px;
-	margin: 5% auto;
+	margin: 0 auto;
 	display: block;
 }
 
 .section-1 .video {
-	width: 800px;
+	width: 850px;
 	height: 480px;
 }
 
 /* On screens that are 992px wide or less, the background color is blue */
 @media screen and (max-width: 1200px) {
 	.section-1 .video {
-		width: 400px;
-		height: 300px;
+		width: 550px;
+		height: 325px;
 	}
 	.section-1 .vid {
-		width: 400px;
-		height: 300px;
+		width: 550px;
+		height: 325px;
 	}
 }
 
@@ -121,11 +121,11 @@ body {
 		width: 95%;
 	}
 	.section-1 .video {
-		width: 300px;
+		width: 315px;
 		height: 200px;
 	}
 	.section-1 .vid {
-		width: 300px;
+		width: 315px;
 		height: 200px;
 	}
 }

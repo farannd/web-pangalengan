@@ -14,6 +14,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const sanitizeHtml = require('sanitize-html');
+const cors = require('cors');
 
 //general confid
 const app = express();
@@ -55,7 +56,7 @@ app.use(
 		}),
 		cookie: {
 			httpOnly: true,
-			// secure: true,
+			secure: true,
 			maxAge: 24 * 60 * 60 * 1000,
 			sameSite: 'none'
 		}
@@ -73,6 +74,7 @@ app.use(flash());
 app.set('view engine', 'ejs');
 app.use(cookieParser('secret'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(cors());
 
 //authenticate config
 app.use(passport.initialize());
