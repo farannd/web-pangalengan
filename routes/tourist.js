@@ -291,7 +291,7 @@ router.put(
 					'warning',
 					'Ukuran file anda adalah ' +
 						fileSize / 1000000 +
-						' mb. Harap melakukan compress terlebih dahulu terhadap file'
+						' mb. Harap melakukan compress terlebih dahulu terhadap file karena sudah melebihi ketentuan'
 				);
 				res.redirect('/tourist-attraction/' + id + '/edit');
 			} else {
