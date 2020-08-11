@@ -92,8 +92,9 @@ body {
 	height: 480px;
 }
 
-.section1 .carousel a {
-	color: #7c3c21;
+.section-1 .carousel-control-next,
+.section-1 .carousel-control-prev {
+	color: #7c3c21 !important;
 }
 
 /* On screens that are 992px wide or less, the background color is blue */
