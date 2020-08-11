@@ -92,6 +92,10 @@ body {
 	height: 480px;
 }
 
+.section1 .carousel a {
+	color: #7c3c21;
+}
+
 /* On screens that are 992px wide or less, the background color is blue */
 @media screen and (max-width: 1200px) {
 	.section-1 .video {

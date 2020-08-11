@@ -106,7 +106,7 @@ router.post('/activity', [ middleware.upload.single('image'), middleware.isAdmin
 	} else {
 		let obj = {
 			content: sanitizeHtml(req.body.content, {
-				allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'span' ]),
+				allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]),
 				allowedAttributes: false
 			}),
 			title: req.body.title.toLowerCase(),
@@ -182,7 +182,7 @@ router.put('/activity/:id', [ middleware.upload.single('image'), middleware.isAd
 			} else {
 				obj = {
 					content: sanitizeHtml(req.body.content, {
-						allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img', 'span' ]),
+						allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]),
 						allowedAttributes: false
 					}),
 					title: req.body.title.toLowerCase(),
